@@ -12,10 +12,11 @@ async function bootstrap() {
     .setTitle('race-nestjs-admin')
     .setDescription('nestjs-admin 基于RABC的通用api文档')
     .setVersion('1.0')
-    .addTag('通用api接口')
+    // .addTag('通用api接口')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
 
 
