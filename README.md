@@ -33,7 +33,7 @@
 13. 服务监控：查看一些服务器的基本信息。
 
 
-## 使用
+## 😊 使用
 
 ### 启动项目
 ```
@@ -60,7 +60,7 @@ Copyright (c) 2021 bulolo
 
 
 
-## 🔑 inspired
+## 👍 inspired
 
 [go-admin](https://github.com/go-admin-team/go-admin)
 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
