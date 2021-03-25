@@ -7,8 +7,10 @@ import { Logger } from '@nestjs/common'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService)
+
   //允许跨域
   app.enableCors();
+
   // 日志中间件
   app.use(new LoggerMiddleware().use)
 
@@ -26,13 +28,14 @@ async function bootstrap() {
       .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup('docs', app, document);
-    Logger.log('启动成功','swagger文档')
+    Logger.log(`/docs`, 'swagger文档启动成功')
   }
 
   await app.listen(config.get<number>('app.port') || 8080);
 
   const appLocalPath = await app.getUrl()
-
+  
   Logger.log(appLocalPath, '服务启动成功')
+
 }
 bootstrap();
