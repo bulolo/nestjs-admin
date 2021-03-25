@@ -1,0 +1,27 @@
+app:
+  port: 3002
+  swagger: true
+db:
+  mysql:
+    host: 'localhost'
+    username: 'root'
+    password: 'hong'
+    database: 'nestjs_admin'
+    port: 3306
+    charser: 'utf8mb4'
+    logger: 'advanced-console'
+    logging: true
+    multipleStatements: true
+    dropSchema: false
+    synchronize: true
+
+redis:
+  host: 'localhost'
+  port: 6379
+  db: 0
+  keyPrefix: 'nest:'
+
+jwt:
+  secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
+  expiresin: '2h'
+  refreshExpiresIn: '24h'

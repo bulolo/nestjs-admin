@@ -28,14 +28,13 @@ async function bootstrap() {
       .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup('docs', app, document);
-    Logger.log(`/docs`, 'swagger文档启动成功')
+    Logger.log(`/docs`, 'swagger启动成功')
   }
 
   await app.listen(config.get<number>('app.port') || 8080);
 
   const appLocalPath = await app.getUrl()
-  
-  Logger.log(appLocalPath, '服务启动成功')
 
+  Logger.log(appLocalPath, '服务启动成功')
 }
 bootstrap();
