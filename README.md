@@ -62,5 +62,5 @@ Copyright (c) 2021 bulolo
 
 ## 👍 inspired
 
-[go-admin](https://github.com/go-admin-team/go-admin)
-[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+[go-admin](https://github.com/go-admin-team/go-admin)   
+[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)   
