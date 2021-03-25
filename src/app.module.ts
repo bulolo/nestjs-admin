@@ -24,6 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       load: [configuration],
       isGlobal:true
     }),
+    //配置typeorm
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
