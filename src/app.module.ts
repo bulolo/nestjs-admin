@@ -11,9 +11,7 @@ import { UserController } from './system/user/user.controller';
 import { RoleModule } from './system/role/role.module';
 import { RoleService } from './system/role/role.service';
 import { RoleController } from './system/role/role.controller';
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/index'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -26,18 +24,18 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       load: [configuration],
       isGlobal:true
     }),
-    // TypeOrmModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (config: ConfigService) => {
-    //     return {
-    //       type: 'mysql',
-    //       entities: ['dist/**/*.entity{.ts,.js}'],
-    //       keepConnectionAlive: true,
-    //       ...config.get('db.mysql')
-    //     }
-    //   },
-    // }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'mysql',
+          entities: ['dist/**/*.entity{.ts,.js}'],
+          keepConnectionAlive: true,
+          ...config.get('db.mysql')
+        }
+      },
+    }),
     MenuModule,
     AuthModule,
     UserModule,
@@ -46,11 +44,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     MenuController,
     AuthController,
     UserController,
-    RoleController, AppController],
+    RoleController],
   providers: [
     MenuService,
     AuthService,
     UserService,
-    RoleService, AppService],
+    RoleService],
 })
-export class AppModule { }
+export class AppModule  {}

@@ -13,7 +13,7 @@ db:
     logging: true
     multipleStatements: true
     dropSchema: false
-    synchronize: true
+    synchronize: false
 
 redis:
   host: 'localhost'
