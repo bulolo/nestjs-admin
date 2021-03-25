@@ -41,10 +41,14 @@ yarn start
 ```
 
 ### 数据库表创建模型实体
+#### 所有表构建模型实体
 ```
 yarn db
 ```
-
+#### 指定表构建模型实体
+```
+yarn db -- --tables sys_user,sys_role
+```
 ### 构建镜像
 ```
 yarn build:docker
