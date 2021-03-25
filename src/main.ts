@@ -6,6 +6,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //允许跨域
+  app.enableCors();
 
   // swagger文档
   const config = new DocumentBuilder()
