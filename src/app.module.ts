@@ -1,3 +1,6 @@
+import { MenuModule } from './system/menu/menu.module';
+import { MenuService } from './system/menu/menu.service';
+import { MenuController } from './system/menu/menu.controller';
 import { AuthModule } from './system/auth/auth.module';
 import { AuthService } from './system/auth/auth.service';
 import { AuthController } from './system/auth/auth.controller';
@@ -14,14 +17,17 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    MenuModule,
     AuthModule,
     UserModule,
     RoleModule],
   controllers: [
+    MenuController,
     AuthController,
     UserController,
     RoleController, AppController],
   providers: [
+    MenuService,
     AuthService,
     UserService,
     RoleService, AppService],

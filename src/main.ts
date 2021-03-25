@@ -21,7 +21,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
 
-
+  // 日志中间件
   app.use(new LoggerMiddleware().use)
 
   await app.listen(3000);
