@@ -1,5 +1,5 @@
 app:
-  port: 7002
+  port: 3000
   swagger: true
 db:
   mysql:
