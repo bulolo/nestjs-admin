@@ -589,7 +589,7 @@
     "webpack" "5.11.0"
     "webpack-node-externals" "2.5.2"
 
-"@nestjs/common@^6.8.0 || ^7.0.0", "@nestjs/common@^7.0.0", "@nestjs/common@^7.0.8", "@nestjs/common@^7.6.13":
+"@nestjs/common@^6.10.0 || ^7.0.0", "@nestjs/common@^6.8.0 || ^7.0.0", "@nestjs/common@^7.0.0", "@nestjs/common@^7.0.8", "@nestjs/common@^7.6.13":
   "integrity" "sha1-q9rTYO8QdII0WxEe7udPvvAGIMk="
   "resolved" "https://registry.npm.taobao.org/@nestjs/common/download/@nestjs/common-7.6.14.tgz"
   "version" "7.6.14"
@@ -597,6 +597,18 @@
     "axios" "0.21.1"
     "iterare" "1.2.1"
     "tslib" "2.1.0"
+    "uuid" "8.3.2"
+
+"@nestjs/config@^0.6.3":
+  "integrity" "sha1-qwwNzPeWllCc7UY6iIVnIZwuW30="
+  "resolved" "https://registry.npm.taobao.org/@nestjs/config/download/@nestjs/config-0.6.3.tgz"
+  "version" "0.6.3"
+  dependencies:
+    "dotenv" "8.2.0"
+    "dotenv-expand" "5.1.0"
+    "lodash.get" "4.4.2"
+    "lodash.has" "4.5.2"
+    "lodash.set" "4.3.2"
     "uuid" "8.3.2"
 
 "@nestjs/core@^6.8.0 || ^7.0.0", "@nestjs/core@^7.0.0", "@nestjs/core@^7.6.13":
@@ -844,6 +856,11 @@
   dependencies:
     "jest-diff" "^26.0.0"
     "pretty-format" "^26.0.0"
+
+"@types/js-yaml@^4.0.0":
+  "integrity" "sha1-0aEWiBEgkfLHEWdN86ZeovR7Xfs="
+  "resolved" "https://registry.npm.taobao.org/@types/js-yaml/download/@types/js-yaml-4.0.0.tgz?cache=0&sync_timestamp=1613379617096&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjs-yaml%2Fdownload%2F%40types%2Fjs-yaml-4.0.0.tgz"
+  "version" "4.0.0"
 
 "@types/json-schema@*", "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   "integrity" "sha1-mKmTUWyFnrDVxMjwmDF6nqaNua0="
@@ -2191,6 +2208,16 @@
   "version" "2.0.1"
   dependencies:
     "webidl-conversions" "^5.0.0"
+
+"dotenv-expand@5.1.0":
+  "integrity" "sha1-P7rwIL/XlIhAcuomsel5HUWmKfA="
+  "resolved" "https://registry.npm.taobao.org/dotenv-expand/download/dotenv-expand-5.1.0.tgz?cache=0&sync_timestamp=1603163578680&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdotenv-expand%2Fdownload%2Fdotenv-expand-5.1.0.tgz"
+  "version" "5.1.0"
+
+"dotenv@8.2.0":
+  "integrity" "sha1-l+YZJZradQ7qPk6j4mvO6lQksWo="
+  "resolved" "https://registry.npm.taobao.org/dotenv/download/dotenv-8.2.0.tgz"
+  "version" "8.2.0"
 
 "ecc-jsbn@~0.1.1":
   "integrity" "sha1-OoOpBOVDUyh4dMVkt1SThoSamMk="
@@ -3821,7 +3848,7 @@
   "resolved" "https://registry.npm.taobao.org/js-tokens/download/js-tokens-4.0.0.tgz"
   "version" "4.0.0"
 
-"js-yaml@^3.13.1":
+"js-yaml@^3.13.1", "js-yaml@^3.14.1":
   "integrity" "sha1-2ugS/bOCX6MGYJqHFzg8UMNqBTc="
   "resolved" "https://registry.npm.taobao.org/js-yaml/download/js-yaml-3.14.1.tgz?cache=0&sync_timestamp=1609680108107&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-yaml%2Fdownload%2Fjs-yaml-3.14.1.tgz"
   "version" "3.14.1"
@@ -4052,6 +4079,21 @@
   "version" "6.0.0"
   dependencies:
     "p-locate" "^5.0.0"
+
+"lodash.get@4.4.2":
+  "integrity" "sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk="
+  "resolved" "https://registry.npm.taobao.org/lodash.get/download/lodash.get-4.4.2.tgz"
+  "version" "4.4.2"
+
+"lodash.has@4.5.2":
+  "integrity" "sha1-0Z9NwQlQWMzL4rDN9O4P5Ko3yGI="
+  "resolved" "https://registry.npm.taobao.org/lodash.has/download/lodash.has-4.5.2.tgz"
+  "version" "4.5.2"
+
+"lodash.set@4.3.2":
+  "integrity" "sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM="
+  "resolved" "https://registry.npm.taobao.org/lodash.set/download/lodash.set-4.3.2.tgz"
+  "version" "4.3.2"
 
 "lodash.sortby@^4.7.0":
   "integrity" "sha1-7dFMgk4sycHgsKG0K7UhBRakJDg="

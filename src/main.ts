@@ -20,7 +20,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-
   // 日志中间件
   app.use(new LoggerMiddleware().use)
 

@@ -1,3 +1,4 @@
+
 import { MenuModule } from './system/menu/menu.module';
 import { MenuService } from './system/menu/menu.service';
 import { MenuController } from './system/menu/menu.controller';
@@ -13,10 +14,17 @@ import { RoleController } from './system/role/role.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/index'
 
 @Module({
   imports: [
+    //配置模块
+    ConfigModule.forRoot({
+      cache:true,
+      load: [configuration],
+      isGlobal:true
+    }),
     MenuModule,
     AuthModule,
     UserModule,
