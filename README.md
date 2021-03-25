@@ -41,11 +41,11 @@ yarn start
 ```
 
 ### 数据库表创建模型实体
-#### 所有表构建模型实体
+* 所有表构建模型实体   
 ```
 yarn db
 ```
-#### 指定表构建模型实体
+* 指定表构建模型实体   
 ```
 yarn db -- --tables sys_user,sys_role
 ```
@@ -57,3 +57,10 @@ yarn build:docker
 ## 🔑 License
 
 Copyright (c) 2021 bulolo
+
+
+
+## 🔑 inspired
+
+[go-admin](https://github.com/go-admin-team/go-admin)
+[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
