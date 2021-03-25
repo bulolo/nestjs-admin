@@ -36,5 +36,7 @@ async function bootstrap() {
   const appLocalPath = await app.getUrl()
 
   Logger.log(appLocalPath, '服务启动成功')
+  
+  Logger.log(process.env.NODE_ENV, '当前启动环境')
 }
 bootstrap();
