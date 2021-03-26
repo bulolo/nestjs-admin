@@ -5,6 +5,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { ConfigService } from "@nestjs/config"
 import { Logger } from '@nestjs/common'
 import * as express from 'express'
+import { AllExceptionsFilter } from './common/exception/exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
@@ -19,6 +20,9 @@ async function bootstrap() {
   app.use(express.urlencoded({ extended: true })) 
   // 日志中间件
   app.use(new LoggerMiddleware().use)
+
+  // 所有异常
+  app.useGlobalFilters(new AllExceptionsFilter())
 
   // 设置 api 访问前缀
   app.setGlobalPrefix('/api')

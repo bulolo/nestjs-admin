@@ -7,8 +7,8 @@ export class UserController {
     constructor(private readonly userService: UserService) { }
     @Get()
     async findAll(@Query() query): Promise<string> {
-        return query
-        // throw new ForbiddenException()
+        // return query
+        throw new ForbiddenException()
     }
     @Post()
     async create(@Body() body): Promise<string> {

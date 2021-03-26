@@ -1,3 +1,5 @@
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './common/exception/exception.filter';
 
 import { MenuModule } from './system/menu/menu.module';
 import { MenuService } from './system/menu/menu.service';
@@ -20,9 +22,9 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   imports: [
     //配置模块
     ConfigModule.forRoot({
-      cache:true,
+      cache: true,
       load: [configuration],
-      isGlobal:true
+      isGlobal: true
     }),
     //配置typeorm
     TypeOrmModule.forRootAsync({
@@ -47,9 +49,13 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     UserController,
     RoleController],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
     MenuService,
     AuthService,
     UserService,
     RoleService],
 })
-export class AppModule  {}
+export class AppModule { }

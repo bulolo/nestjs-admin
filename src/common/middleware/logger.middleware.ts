@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: Function) {
-    const logFormat = `  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    const logFormat = `  \n  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       Request original url: ${req.originalUrl}
       Method: ${req.method}
       IP: ${req.ip}
@@ -13,7 +13,7 @@ export class LoggerMiddleware implements NestMiddleware {
       Query: ${JSON.stringify(req.query)}
       Body: ${JSON.stringify(req.body)} \n  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
     `
-    console.log(logFormat);
+    console.log('LoggerMiddleware',logFormat);
     next();
   }
 }
