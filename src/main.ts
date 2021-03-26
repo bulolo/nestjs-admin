@@ -4,13 +4,19 @@ import { AppModule } from './app.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { ConfigService } from "@nestjs/config"
 import { Logger } from '@nestjs/common'
+import * as express from 'express'
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
+
   const config = app.get(ConfigService)
 
   //允许跨域
   app.enableCors();
 
+  // For parsing application/json
+  app.use(express.json()) 
+  // For parsing application/x-www-form-urlencoded
+  app.use(express.urlencoded({ extended: true })) 
   // 日志中间件
   app.use(new LoggerMiddleware().use)
 
