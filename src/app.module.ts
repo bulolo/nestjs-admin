@@ -28,8 +28,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       useFactory: (config: ConfigService) => {
         return {
           type: 'mysql',
-          // entities: ['dist/**/*.entity{.ts,.js}'],
-          entities: ['dist/entities/*{.ts,.js}'],
+          entities: ['dist/**/*.entity{.ts,.js}'],
           keepConnectionAlive: true,
           ...config.get('db.mysql')
         }
@@ -37,9 +36,10 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     }),],
   controllers: [],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: AllExceptionsFilter,
-    }],
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: AllExceptionsFilter,
+    // }
+  ],
 })
 export class AppModule { }
