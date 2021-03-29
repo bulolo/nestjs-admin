@@ -12,8 +12,8 @@ db:
     logger: 'advanced-console'
     logging: true
     multipleStatements: true
-    dropSchema: false
-    synchronize: false
+    dropSchema: true
+    synchronize: true
 
 redis:
   host: 'localhost'

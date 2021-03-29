@@ -1,13 +1,12 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity } from "../_base/base.entity";
+import { BaseTenantEntity } from "../_base/baseTenant.entity";
 
 @Index("uk_username", ["username"], { unique: true })
 @Index("idx_create_date", ["created_at"], {})
 @Entity("sys_user", { schema: "race_nestjs_admin" })
-export class UserEntity {
+export class UserEntity extends BaseTenantEntity {
     
-    @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
-    id: string;
-
     @Column("varchar", {
         name: "username",
         unique: true,
@@ -97,23 +96,4 @@ export class UserEntity {
     })
     tenant_code: string | null;
 
-    @Column("bigint", { name: "creator", nullable: true, comment: "创建者" })
-    creator: string | null;
-
-    @Column("datetime", {
-        name: "created_at",
-        nullable: true,
-        comment: "创建时间",
-    })
-    created_at: Date | null;
-
-    @Column("bigint", { name: "updater", nullable: true, comment: "更新者" })
-    updater: string | null;
-
-    @Column("datetime", {
-        name: "updated_at",
-        nullable: true,
-        comment: "更新时间",
-    })
-    updated_at: Date | null;
 }
