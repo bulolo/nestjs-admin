@@ -20,7 +20,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db": "rm -rf src/entities & npx typeorm-model-generator -h localhost -d nestjs_admin -p 3306 -u root -x hong -e mysql -o src/entities --noConfig --relationIds --lazy --ce none --cp none"
+    "db": "rm -rf src/entities & npx typeorm-model-generator -h localhost -d security_enterprise_tenant -p 3306 -u root -x hong -e mysql -o src/entities --noConfig --relationIds --lazy --ce none --cp none"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.13",

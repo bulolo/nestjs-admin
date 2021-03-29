@@ -6,7 +6,7 @@ db:
     host: 'localhost'
     username: 'root'
     password: 'hong'
-    database: 'nestjs_admin'
+    database: 'race_nestjs_admin'
     port: 3306
     charser: 'utf8mb4'
     logger: 'advanced-console'
