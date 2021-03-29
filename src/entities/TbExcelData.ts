@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("tb_excel_data", { schema: "security_enterprise_tenant" })
+@Entity("tb_excel_data", { schema: "race_nestjs_admin" })
 export class tb_excel_data {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

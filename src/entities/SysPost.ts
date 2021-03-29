@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("sys_post", { schema: "security_enterprise_tenant" })
+@Entity("sys_post", { schema: "race_nestjs_admin" })
 export class sys_post {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

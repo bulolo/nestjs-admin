@@ -1,7 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("idx_create_date", ["created_at"], {})
-@Entity("sys_mail_template", { schema: "security_enterprise_tenant" })
+@Entity("sys_mail_template", { schema: "race_nestjs_admin" })
 export class sys_mail_template {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

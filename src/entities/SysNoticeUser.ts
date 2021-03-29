@@ -1,6 +1,6 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("sys_notice_user", { schema: "security_enterprise_tenant" })
+@Entity("sys_notice_user", { schema: "race_nestjs_admin" })
 export class sys_notice_user {
   @Column("bigint", { primary: true, name: "receiver_id", comment: "接收者ID" })
   receiver_id: string;

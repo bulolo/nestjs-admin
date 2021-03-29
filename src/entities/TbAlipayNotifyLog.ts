@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("tb_alipay_notify_log", { schema: "security_enterprise_tenant" })
+@Entity("tb_alipay_notify_log", { schema: "race_nestjs_admin" })
 export class tb_alipay_notify_log {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

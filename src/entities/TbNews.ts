@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("tb_news", { schema: "security_enterprise_tenant" })
+@Entity("tb_news", { schema: "race_nestjs_admin" })
 export class tb_news {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

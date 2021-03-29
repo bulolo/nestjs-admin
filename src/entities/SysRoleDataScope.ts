@@ -1,7 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("idx_role_id", ["role_id"], {})
-@Entity("sys_role_data_scope", { schema: "security_enterprise_tenant" })
+@Entity("sys_role_data_scope", { schema: "race_nestjs_admin" })
 export class sys_role_data_scope {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

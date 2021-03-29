@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("uk_param_code", ["param_code"], { unique: true })
 @Index("idx_create_date", ["created_at"], {})
-@Entity("sys_params", { schema: "security_enterprise_tenant" })
+@Entity("sys_params", { schema: "race_nestjs_admin" })
 export class sys_params {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

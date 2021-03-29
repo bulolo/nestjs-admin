@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("uk_dict_type_value", ["dict_type_id", "dict_value"], { unique: true })
 @Index("idx_sort", ["sort"], {})
-@Entity("sys_dict_data", { schema: "security_enterprise_tenant" })
+@Entity("sys_dict_data", { schema: "race_nestjs_admin" })
 export class sys_dict_data {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

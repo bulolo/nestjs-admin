@@ -1,7 +1,7 @@
 import { Column, Entity, Index } from "typeorm";
 
 @Index("idx_table_id", ["table_id"], {})
-@Entity("sys_language", { schema: "security_enterprise_tenant" })
+@Entity("sys_language", { schema: "race_nestjs_admin" })
 export class sys_language {
   @Column("varchar", {
     primary: true,

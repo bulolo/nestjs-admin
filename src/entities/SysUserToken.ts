@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("uk_user_id", ["user_id"], { unique: true })
 @Index("uk_token", ["token"], { unique: true })
-@Entity("sys_user_token", { schema: "security_enterprise_tenant" })
+@Entity("sys_user_token", { schema: "race_nestjs_admin" })
 export class sys_user_token {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;

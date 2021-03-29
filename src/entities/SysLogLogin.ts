@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("idx_status", ["status"], {})
 @Index("idx_create_date", ["created_at"], {})
-@Entity("sys_log_login", { schema: "security_enterprise_tenant" })
+@Entity("sys_log_login", { schema: "race_nestjs_admin" })
 export class sys_log_login {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
   id: string;
