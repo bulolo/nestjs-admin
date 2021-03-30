@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export class BaseEntity {
     @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
-    id: number;
+    id: string;
 
     @Column("bigint", { name: "creator", nullable: true, comment: "创建者" })
     creator: string | null;
