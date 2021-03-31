@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { BaseService } from 'src/modules/_base/base.service';
 import { UserEntity } from './user.entity';
-import { ResultData } from 'src/common/utils/result';
+import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FindUsersDto } from './dto/find-users.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
@@ -15,18 +15,20 @@ export class UserService extends BaseService<UserEntity>{
     ) {
         super(userRep);
     }
-    async create(dto: CreateUserDto): Promise<ResultData> {
-        const res = await this.userRep.create(dto)
-        return ResultData.ok(res)
+    async create(dto: CreateUserDto): Promise<Result> {
+        const user = plainToClass(UserEntity, dto)
+        const res = await this.userRep.save(user)
+        return Result.ok(res)
     }
-    async list(dto: FindUsersDto): Promise<ResultData> {
-        const { page, size, username, status } = dto
+    async list(dto: FindUsersDto): Promise<Result> {
+        const { page = 1, size = 10, username, status } = dto
         const where = {
             ...(status ? { status } : null),
             ...(username ? { username: Like(`%${username}%`) } : null),
         }
+        console.log(where)
         const [data,total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
-        return ResultData.ok({
+        return Result.ok({
             list: classToPlain(data),
             count:total,
             page:page,
@@ -34,17 +36,20 @@ export class UserService extends BaseService<UserEntity>{
         })
     }
 
-    async query(id: string): Promise<ResultData>{
+    async query(id: string): Promise<Result>{
         const res = await this.userRep.findOne(id)
         console.log(res)
-        return ResultData.ok(res)
+        return Result.ok(res)
     }
-    async updateOne(dto: CreateUserDto): Promise<ResultData>{
-        const res = await this.userRep.find()
-        return ResultData.ok(res)
+    async updateOne(dto: CreateUserDto): Promise<Result>{
+
+        const user = plainToClass(UserEntity, dto)
+        console.log(user)
+        const res = await this.userRep.update({id:'3'}, user)
+        return Result.ok(res)
     }
-    async deleteOne(id: string): Promise<ResultData>{
-        const res = await this.userRep.find()
-        return ResultData.ok(res)
+    async deleteOne(id: string): Promise<Result>{
+        const res = await this.userRep.delete(id)
+        return Result.ok(res)
     }
 }
