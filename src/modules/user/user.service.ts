@@ -1,13 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { BaseService } from 'src/modules/_base/base.service';
 import { UserEntity } from './user.entity';
 import { Result } from 'src/common/utils/result';
-import { CreateUserDto } from './dto/create-user.dto';
-import { FindUsersDto } from './dto/find-users.dto';
+import { CreateUserDto } from './dto/create.dto';
+import { QueryUserDto } from './dto/query.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
-import { ForbiddenException } from 'src/common/exception/forbidden.exception';
+
 @Injectable()
 export class UserService {
     constructor(
@@ -21,7 +20,7 @@ export class UserService {
         return Result.ok(res)
     }
 
-    findUsers = async (dto: FindUsersDto) :Promise<Result> => {
+    findUsers = async (dto: QueryUserDto) :Promise<Result> => {
         const { page = 1, size = 10, username, status } = dto
         const where = {
             ...(status ? { status } : null),
@@ -52,7 +51,7 @@ export class UserService {
       return Result.ok(updateResult)
     }
     
-  deleteUserById = async (id: number): Promise<Result> => {
+    deleteUserById = async (id: number): Promise<Result> => {
         await this.findUserById(id)
         const res = await this.userRep.softDelete(id)
         return Result.ok(res)

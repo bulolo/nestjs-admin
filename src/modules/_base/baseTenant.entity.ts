@@ -7,5 +7,5 @@ export class BaseTenantEntity extends BaseEntity{
         nullable: true,
         comment: "租户编码",
     })
-    tenant_code: string | null;
+    tenant_code: number | null;
 }

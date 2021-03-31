@@ -29,7 +29,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       code: status,
       // timestamp: new Date().toISOString(),
       // path: request.url,
-      msg: `Service Error: ${exception}`
+      msg: `${exception}`
     });
   }
 }

@@ -5,11 +5,11 @@ import { Exclude } from 'class-transformer';
 export class BaseEntity {
     @ApiProperty({ type: Number, description: 'id' })
     @PrimaryGeneratedColumn({ type: "bigint", name: "id", comment: "id" })
-    id: string;
+    id: number;
 
     @ApiProperty({ type: Number, description: '创建者' })
     @Column("bigint", { name: "creator", nullable: true, comment: "创建者" })
-    creator: string | null;
+    creator: number | null;
 
     @ApiProperty({ type: Date, description: '创建时间' })
     @CreateDateColumn({
@@ -21,7 +21,7 @@ export class BaseEntity {
 
     @ApiProperty({ type: Number, description: '更新者' })
     @Column("bigint", { name: "updater", nullable: true, comment: "更新者" })
-    updater: string | null;
+    updater: number | null;
 
     @ApiProperty({ type: Date, description: '更新时间' })
     @UpdateDateColumn({

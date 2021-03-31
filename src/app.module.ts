@@ -1,3 +1,4 @@
+import { TenantModule } from './modules/tenant/tenant.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoleModule } from './modules/role/role.module';
@@ -11,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
   imports: [
+    TenantModule,
     MenuModule,
     AuthModule,
     RoleModule,

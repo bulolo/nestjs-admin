@@ -73,7 +73,7 @@ export class UserEntity extends BaseTenantEntity {
 
     @ApiProperty({ type: Number, description: '部门ID' })
     @Column("bigint", { name: "dept_id", nullable: true, comment: "部门ID" })
-    dept_id: string | null;
+    dept_id: number | null;
 
     @ApiProperty({ type: Number, description: '超级管理员' })
     @Column("tinyint", {
