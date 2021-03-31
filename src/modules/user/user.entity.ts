@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "../_base/base.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
@@ -7,6 +8,7 @@ import { BaseTenantEntity } from "../_base/baseTenant.entity";
 @Entity("sys_user", { schema: "race_nestjs_admin" })
 export class UserEntity extends BaseTenantEntity {
     
+    @ApiProperty({ type: String, description: '用户名' })
     @Column("varchar", {
         name: "username",
         unique: true,
@@ -15,6 +17,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     username: string;
 
+    @ApiProperty({ type: String, description: '密码' })
     @Column("varchar", {
         name: "password",
         nullable: true,
@@ -23,6 +26,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     password: string | null;
 
+    @ApiProperty({ type: String, description: '姓名' })
     @Column("varchar", {
         name: "real_name",
         nullable: true,
@@ -31,6 +35,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     real_name: string | null;
 
+    @ApiProperty({ type: String, description: '头像' })
     @Column("varchar", {
         name: "head_url",
         nullable: true,
@@ -39,6 +44,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     head_url: string | null;
 
+    @ApiProperty({ type: Number, description: '性别' })
     @Column("tinyint", {
         name: "gender",
         nullable: true,
@@ -47,6 +53,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     gender: number | null;
 
+    @ApiProperty({ type: String, description: '邮箱' })
     @Column("varchar", {
         name: "email",
         nullable: true,
@@ -55,6 +62,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     email: string | null;
 
+    @ApiProperty({ type: String, description: '手机号' })
     @Column("varchar", {
         name: "mobile",
         nullable: true,
@@ -63,9 +71,11 @@ export class UserEntity extends BaseTenantEntity {
     })
     mobile: string | null;
 
+    @ApiProperty({ type: Number, description: '部门ID' })
     @Column("bigint", { name: "dept_id", nullable: true, comment: "部门ID" })
     dept_id: string | null;
 
+    @ApiProperty({ type: Number, description: '超级管理员' })
     @Column("tinyint", {
         name: "super_admin",
         nullable: true,
@@ -74,6 +84,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     super_admin: number | null;
 
+    @ApiProperty({ type: Number, description: '租户管理员' })
     @Column("tinyint", {
         name: "super_tenant",
         nullable: true,
@@ -82,6 +93,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     super_tenant: number | null;
 
+    @ApiProperty({ type: Number, description: '状态' })
     @Column("tinyint", {
         name: "status",
         nullable: true,
@@ -89,6 +101,7 @@ export class UserEntity extends BaseTenantEntity {
     })
     status: number | null;
 
+    @ApiProperty({ type: Number, description: '租户编码' })
     @Column("bigint", {
         name: "tenant_code",
         nullable: true,

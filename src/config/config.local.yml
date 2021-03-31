@@ -12,7 +12,7 @@ db:
     logger: 'advanced-console'
     logging: true
     multipleStatements: true
-    dropSchema: true
+    dropSchema: false
     synchronize: true
 
 redis:
