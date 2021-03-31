@@ -1836,7 +1836,7 @@
   "resolved" "https://registry.npm.taobao.org/cjs-module-lexer/download/cjs-module-lexer-0.6.0.tgz"
   "version" "0.6.0"
 
-"class-transformer@*", "class-transformer@^0.2.0 || ^0.3.0 || ^0.4.0":
+"class-transformer@*", "class-transformer@^0.2.0 || ^0.3.0 || ^0.4.0", "class-transformer@^0.4.0":
   "integrity" "sha1-tSFEEXtCPFFq+0TMHHbbrTHCFls="
   "resolved" "https://registry.npm.taobao.org/class-transformer/download/class-transformer-0.4.0.tgz"
   "version" "0.4.0"
@@ -1851,7 +1851,7 @@
     "isobject" "^3.0.0"
     "static-extend" "^0.1.1"
 
-"class-validator@*", "class-validator@^0.11.1 || ^0.12.0 || ^0.13.0":
+"class-validator@*", "class-validator@^0.11.1 || ^0.12.0 || ^0.13.0", "class-validator@^0.13.1":
   "integrity" "sha1-OBsgAe5rngWv0TNnH733YNp97Gc="
   "resolved" "https://registry.npm.taobao.org/class-validator/download/class-validator-0.13.1.tgz"
   "version" "0.13.1"
