@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { BaseService } from 'src/modules/_base/base.service';
@@ -7,6 +7,7 @@ import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FindUsersDto } from './dto/find-users.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
+import { ForbiddenException } from 'src/common/exception/forbidden.exception';
 @Injectable()
 export class UserService {
     constructor(
@@ -37,17 +38,22 @@ export class UserService {
 
     findUserById  = async (id: number): Promise<Result> => {
         const res = await this.userRep.findOne(id)
+        if (!res) {
+          throw new NotFoundException()
+        }
         return Result.ok(res)
     }
 
     updateUserById = async (id: number, dto: CreateUserDto): Promise<Result> => {
+      await this.findUserById(id)
       let updateResult = 1
       const user = plainToClass(UserEntity, dto)
       const res = await this.userRep.update(id, user).catch(e => updateResult = 0);
       return Result.ok(updateResult)
     }
     
-    deleteUserById = async (id: string): Promise<Result> => {
+  deleteUserById = async (id: number): Promise<Result> => {
+        await this.findUserById(id)
         const res = await this.userRep.softDelete(id)
         return Result.ok(res)
     }

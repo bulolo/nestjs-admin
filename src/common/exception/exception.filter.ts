@@ -26,7 +26,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       `
     console.log('AllExceptionsFilter', logFormat);
     response.status(status).json({
-      statusCode: status,
+      code: status,
       // timestamp: new Date().toISOString(),
       // path: request.url,
       msg: `Service Error: ${exception}`
