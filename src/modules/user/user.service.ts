@@ -15,40 +15,38 @@ export class UserService extends BaseService<UserEntity>{
     ) {
         super(userRep);
     }
-    async create(dto: CreateUserDto): Promise<Result> {
+    async createUser(dto: CreateUserDto): Promise<Result> {
         const user = plainToClass(UserEntity, dto)
         const res = await this.userRep.save(user)
         return Result.ok(res)
     }
-    async list(dto: FindUsersDto): Promise<Result> {
+    async findUsers(dto: FindUsersDto): Promise<Result> {
         const { page = 1, size = 10, username, status } = dto
         const where = {
             ...(status ? { status } : null),
             ...(username ? { username: Like(`%${username}%`) } : null),
         }
-        console.log(where)
-        const [data,total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
+        const [result,total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
         return Result.ok({
-            list: classToPlain(data),
+            list: classToPlain(result),
             count:total,
             page:page,
             size:size
         })
     }
 
-    async query(id: string): Promise<Result>{
+    async findUserById(id: number): Promise<Result>{
         const res = await this.userRep.findOne(id)
-        console.log(res)
         return Result.ok(res)
     }
-    async updateOne(dto: CreateUserDto): Promise<Result>{
 
+    async updateUserById(id:number,dto: CreateUserDto): Promise<Result>{
         const user = plainToClass(UserEntity, dto)
-        console.log(user)
-        const res = await this.userRep.update({id:'3'}, user)
+        const res = await this.userRep.update(id, user)
         return Result.ok(res)
     }
-    async deleteOne(id: string): Promise<Result>{
+    
+    async deleteUserById(id: string): Promise<Result>{
         const res = await this.userRep.delete(id)
         return Result.ok(res)
     }

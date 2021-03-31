@@ -101,12 +101,4 @@ export class UserEntity extends BaseTenantEntity {
     })
     status: number | null;
 
-    @ApiProperty({ type: Number, description: '租户编码' })
-    @Column("bigint", {
-        name: "tenant_code",
-        nullable: true,
-        comment: "租户编码",
-    })
-    tenant_code: string | null;
-
 }

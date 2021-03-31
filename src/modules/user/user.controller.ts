@@ -18,35 +18,39 @@ export class UserController {
   @ApiOperation({ summary: '查询用户列表' })
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async list(@Query() dto: FindUsersDto): Promise<Result> {
-    const users = await this.userService.list(dto)
+    const users = await this.userService.findUsers(dto)
     return users
     // throw new ForbiddenException()
   }
+
   @Post()
   @ApiOperation({ summary: '创建用户' })
   @ApiOkResponse({ type: UserEntity })
   async create(@Body() dto:CreateUserDto): Promise<Result> {
-    return await this.userService.create(dto)
+    return await this.userService.createUser(dto)
   }
+
   @Get(':id')
   @ApiOperation({ summary: '查询用户' })
   @ApiOkResponse({ type: UserEntity })
   async query(@Param('id') id): Promise<Result> {
-    const user = await this.userService.query(id)
+    const user = await this.userService.findUserById(id)
     return user
   }
+
   @Put(':id')
   @ApiOperation({ summary: '更新用户' })
   @ApiOkResponse({ type: UserEntity })
-  async update(dto: CreateUserDto): Promise<Result> {
-    const user = await this.userService.updateOne(dto)
+  async update(@Param('id') id, @Body() dto: CreateUserDto): Promise<Result> {
+    const user = await this.userService.updateUserById(id,dto)
     return user
   }
+  
   @Delete(':id')
   @ApiOperation({ summary: '删除用户' })
   @ApiOkResponse({ type: UserEntity })
   async delete(@Param('id') id): Promise<Result> {
-    const user = await this.userService.deleteOne(id)
+    const user = await this.userService.deleteUserById(id)
     return user
   }
 }
