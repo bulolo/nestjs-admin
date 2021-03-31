@@ -8,19 +8,19 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { FindUsersDto } from './dto/find-users.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
 @Injectable()
-export class UserService extends BaseService<UserEntity>{
+export class UserService {
     constructor(
         @InjectRepository(UserEntity) 
         private readonly userRep: Repository<UserEntity>
-    ) {
-        super(userRep);
-    }
-    async createUser(dto: CreateUserDto): Promise<Result> {
+    ) {}
+
+    createUser = async (dto: CreateUserDto): Promise<Result> => {
         const user = plainToClass(UserEntity, dto)
         const res = await this.userRep.save(user)
         return Result.ok(res)
     }
-    async findUsers(dto: FindUsersDto): Promise<Result> {
+
+    findUsers = async (dto: FindUsersDto) :Promise<Result> => {
         const { page = 1, size = 10, username, status } = dto
         const where = {
             ...(status ? { status } : null),
@@ -35,19 +35,20 @@ export class UserService extends BaseService<UserEntity>{
         })
     }
 
-    async findUserById(id: number): Promise<Result>{
+    findUserById  = async (id: number): Promise<Result> => {
         const res = await this.userRep.findOne(id)
         return Result.ok(res)
     }
 
-    async updateUserById(id:number,dto: CreateUserDto): Promise<Result>{
-        const user = plainToClass(UserEntity, dto)
-        const res = await this.userRep.update(id, user)
-        return Result.ok(res)
+    updateUserById = async (id: number, dto: CreateUserDto): Promise<Result> => {
+      let updateResult = 1
+      const user = plainToClass(UserEntity, dto)
+      const res = await this.userRep.update(id, user).catch(e => updateResult = 0);
+      return Result.ok(updateResult)
     }
     
-    async deleteUserById(id: string): Promise<Result>{
-        const res = await this.userRep.delete(id)
+    deleteUserById = async (id: string): Promise<Result> => {
+        const res = await this.userRep.softDelete(id)
         return Result.ok(res)
     }
 }

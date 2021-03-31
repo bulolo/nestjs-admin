@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger'
+import { Exclude } from 'class-transformer';
 
 export class BaseEntity {
     @ApiProperty({ type: Number, description: 'id' })
@@ -11,10 +12,10 @@ export class BaseEntity {
     creator: string | null;
 
     @ApiProperty({ type: Date, description: '创建时间' })
-    @Column("datetime", {
-        name: "created_at",
-        nullable: true,
-        comment: "创建时间",
+    @CreateDateColumn({
+      type: 'datetime',
+      name: 'created_at',
+      comment: '创建时间',
     })
     created_at: Date | null;
 
@@ -23,10 +24,18 @@ export class BaseEntity {
     updater: string | null;
 
     @ApiProperty({ type: Date, description: '更新时间' })
-    @Column("datetime", {
-        name: "updated_at",
-        nullable: true,
-        comment: "更新时间",
+    @UpdateDateColumn({
+      type: 'datetime',
+      name: 'updated_at',
+      comment: '更新时间',
     })
     updated_at: Date | null;
+
+    @Exclude()
+    @DeleteDateColumn({
+      type: 'datetime',
+      name: 'deleted_at',
+      comment: '删除',
+    })
+    deleted_at: Date;
 }

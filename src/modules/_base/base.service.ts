@@ -14,35 +14,35 @@ export class BaseService<T> {
     }
 
     async saveOne(entity: T, options?: SaveOptions): Promise<T> {
-        return this.repository.save(entity, options);
+        return await this.repository.save(entity, options);
     }
 
     async saveMany(entities: T[], options?: SaveOptions): Promise<T[]> {
-        return this.repository.save(entities, options);
+      return await this.repository.save(entities, options);
     }
 
     async findOne(options?: FindConditions<T>): Promise<T> {
-        return this.repository.findOne(options);
+      return await this.repository.findOne(options);
     }
 
     async findMany(options?: FindConditions<T>): Promise<T[]> {
-        return this.repository.find(options);
+      return await this.repository.find(options);
     }
 
     async findAll(): Promise<T[]> {
-        return this.repository.find();
+      return await this.repository.find();
     }
 
     async removeOne(entity: T, options?: RemoveOptions): Promise<T> {
-        return this.repository.remove(entity, options);
+      return await this.repository.remove(entity, options);
     }
 
     async removeMany(entities: T[], options?: RemoveOptions): Promise<T[]> {
-        return this.repository.remove(entities, options);
+      return await this.repository.remove(entities, options);
     }
 
     async delete(options?: FindConditions<T>): Promise<DeleteResult> {
-        return this.repository.delete(options);
+      return await this.repository.delete(options);
     }
 
     async update(conditions: number | FindConditions<T>, newValue: QueryDeepPartialEntity<T>): Promise<number> {
