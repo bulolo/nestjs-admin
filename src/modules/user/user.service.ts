@@ -6,12 +6,15 @@ import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from './dto/create.dto';
 import { QueryUserDto } from './dto/query.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
+import { RedisService } from 'nestjs-redis';
+import { RoleService } from '../role/role.service';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserEntity) 
-        private readonly userRep: Repository<UserEntity>
+        private readonly userRep: Repository<UserEntity>,
+        private readonly redisService: RedisService
     ) {}
 
     createUser = async (dto: CreateUserDto): Promise<Result> => {

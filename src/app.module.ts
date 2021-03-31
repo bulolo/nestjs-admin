@@ -9,6 +9,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/index'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { RedisModule } from 'nestjs-redis';
 
 @Module({
   imports: [
@@ -27,15 +28,20 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         return {
           type: 'mysql',
           entities: ['dist/**/*.entity{.ts,.js}'],
           keepConnectionAlive: true,
-          ...config.get('db.mysql')
+          ...configService.get('db.mysql')
         }
       },
-    }),],
+    }),
+    RedisModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory:  (configService: ConfigService) => configService.get('redis')
+    }),
+  ],
   controllers: [],
   providers: [
     // {
