@@ -23,7 +23,7 @@ export class UserService extends BaseService<UserEntity>{
         const { page, size, username, status } = dto
         const where = {
             ...(status ? { status } : null),
-            ...(username ? { account: Like(`%${username}%`) } : null),
+            ...(username ? { username: Like(`%${username}%`) } : null),
         }
         const [data,total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
         return ResultData.ok({
