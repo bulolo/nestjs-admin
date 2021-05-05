@@ -7,8 +7,6 @@ import { CreateUserDto } from './dto/create.dto';
 import { QueryUserDto } from './dto/query.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { RedisService } from 'nestjs-redis';
-import { JwtService } from '@nestjs/jwt';
-
 import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class UserService {
@@ -16,7 +14,6 @@ export class UserService {
         @InjectRepository(UserEntity) 
         private readonly userRep: Repository<UserEntity>,
         private readonly redisService: RedisService,
-        private readonly jwtService: JwtService,
         private readonly config: ConfigService,
     ) {}
 

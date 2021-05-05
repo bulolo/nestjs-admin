@@ -48,7 +48,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       // Logger
       return false
     }
-    
   }
 
   async activate(context: ExecutionContext): Promise<boolean> {

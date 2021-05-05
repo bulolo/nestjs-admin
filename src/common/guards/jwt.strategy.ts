@@ -11,11 +11,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: config.get('jwt.secretkey'),
-    });
+    })
   }
 
   async validate(payload: any) {
-    const user = await this.authService.validateUser(payload)
+    const user = await this.authService.validateUserByJwt(payload)
     // 如果用用户信息，代表 token 没有过期，没有则 token 已失效
     if (!user) throw new UnauthorizedException()
     return user

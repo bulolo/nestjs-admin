@@ -44,7 +44,7 @@ export class AuthService {
       return 0
     }
   }
-  async validateUser(payload: { id: number }): Promise<UserEntity> {
+  async validateUserByJwt(payload: { id: number }): Promise<UserEntity> {
     return await this.userService.findOneById(payload.id)
   }
 }
