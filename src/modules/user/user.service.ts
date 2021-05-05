@@ -1,29 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Like, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from './dto/create.dto';
 import { QueryUserDto } from './dto/query.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { RedisService } from 'nestjs-redis';
-import { RoleService } from '../role/role.service';
+import { JwtService } from '@nestjs/jwt';
 
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserEntity) 
         private readonly userRep: Repository<UserEntity>,
-        private readonly redisService: RedisService
+        private readonly redisService: RedisService,
+        private readonly jwtService: JwtService,
+        private readonly config: ConfigService,
     ) {}
 
-    createUser = async (dto: CreateUserDto): Promise<Result> => {
+   
+    async createUser (dto: CreateUserDto): Promise<UserEntity>{
         const user = plainToClass(UserEntity, dto)
         const res = await this.userRep.save(user)
-        return Result.ok(res)
+        return res
     }
 
-    findUsers = async (dto: QueryUserDto) :Promise<Result> => {
+    async findUsers (dto: QueryUserDto) :Promise<Result>  {
         const { page = 1, size = 10, username, status } = dto
         const where = {
             ...(status ? { status } : null),
@@ -38,25 +42,27 @@ export class UserService {
         })
     }
 
-    findUserById  = async (id: number): Promise<Result> => {
+    async findOneById (id: number): Promise<UserEntity> {
         const res = await this.userRep.findOne(id)
         if (!res) {
           throw new NotFoundException()
         }
-        return Result.ok(res)
+        return res
     }
-
-    updateUserById = async (id: number, dto: CreateUserDto): Promise<Result> => {
-      await this.findUserById(id)
+    async updateOneById(id: number, dto: CreateUserDto): Promise<number> {
+      await this.findOneById(id)
       let updateResult = 1
       const user = plainToClass(UserEntity, dto)
       const res = await this.userRep.update(id, user).catch(e => updateResult = 0);
-      return Result.ok(updateResult)
+      return updateResult
     }
     
-    deleteUserById = async (id: number): Promise<Result> => {
-        await this.findUserById(id)
+    async deleteOneById (id: number): Promise<UpdateResult>  {
+      await this.findOneById(id)
         const res = await this.userRep.softDelete(id)
-        return Result.ok(res)
+        return res
+    }
+    async findOneByUsername(username: string): Promise<UserEntity> {
+      return await this.userRep.findOne({ username })
     }
 }
