@@ -8,23 +8,23 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 @Global()
 @Module({
-    imports: [TypeOrmModule.forFeature([UserEntity]),
-      JwtModule.registerAsync({
-        imports: [ConfigModule],
-        useFactory: async (config: ConfigService) => ({
-          secret: config.get('jwt.secretkey'),
-          signOptions: {
-            expiresIn: config.get('jwt.expiresin'),
-          },
-        }),
-        inject: [ConfigService],
-      }),
-    ],
-    controllers: [
-        UserController,],
-    providers: [
-        UserService,],
-    exports: [
-      UserService]
+  imports: [TypeOrmModule.forFeature([UserEntity]),
+  JwtModule.registerAsync({
+    imports: [ConfigModule],
+    useFactory: async (config: ConfigService) => ({
+      secret: config.get('jwt.secretkey'),
+      signOptions: {
+        expiresIn: config.get('jwt.expiresin'),
+      },
+    }),
+    inject: [ConfigService],
+  }),
+  ],
+  controllers: [
+    UserController,],
+  providers: [
+    UserService,],
+  exports: [
+    UserService]
 })
 export class UserModule { }

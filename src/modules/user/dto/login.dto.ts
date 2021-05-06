@@ -5,7 +5,7 @@ import { BaseQueryDto } from 'src/modules/_base/baseQuery.dto'
 export class LoginUserDto {
 
   @ApiProperty({ description: '用户名', required: true })
-  username: string
+  account: string
 
   @ApiProperty({ description: '密码', required: true })
   password: string

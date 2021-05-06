@@ -22,11 +22,11 @@ export class AuthController {
     const res = await this.userService.createUser(user)
     return Result.ok(res)
   }
-  
+
   @Post('login')
   @ApiOperation({ summary: '登录' })
   async login(@Body() dto: LoginUserDto): Promise<Result> {
-    const res = await this.userService.login(dto.username, dto.password)
+    const res = await this.userService.login(dto.account, dto.password)
     return Result.ok(res)
   }
 }

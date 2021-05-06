@@ -10,30 +10,30 @@ import { UserService } from './user.service';
 
 @ApiTags('用户账号相关')
 @Controller('v1/users')
-export class UserController { 
+export class UserController {
   constructor(
-      private readonly userService:UserService
-  ){}
+    private readonly userService: UserService
+  ) { }
 
   // @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
   async list(@Query() dto: QueryUserDto): Promise<Result> {
-    const users = await this.userService.findUsers(dto)
-    return users
+    const res = await this.userService.findUsers(dto)
+    return Result.ok(res)
     // throw new ForbiddenException()
   }
 
   @Post()
   @ApiOperation({ summary: '创建用户' })
-  async create(@Body() dto:CreateUserDto): Promise<Result> {
+  async create(@Body() dto: CreateUserDto): Promise<Result> {
     const res = await this.userService.createUser(dto)
     return Result.ok(res)
   }
 
   @Get(':id')
   @ApiOperation({ summary: '查询用户' })
-  @ApiParam({name: 'id',description: '用户id'})
+  @ApiParam({ name: 'id', description: '用户id' })
   async query(@Param('id') id): Promise<Result> {
     const user = await this.userService.findOneById(id)
     return Result.ok(user)
@@ -43,10 +43,10 @@ export class UserController {
   @ApiOperation({ summary: '更新用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   async update(@Param('id') id, @Body() dto: UpdateUserDto): Promise<Result> {
-    const user = await this.userService.updateOneById(id,dto)
+    const user = await this.userService.updateOneById(id, dto)
     return Result.ok(user)
   }
-  
+
   @Delete(':id')
   @ApiOperation({ summary: '删除用户' })
   @ApiParam({ name: 'id', description: '用户id' })

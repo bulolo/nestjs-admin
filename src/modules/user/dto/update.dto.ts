@@ -10,10 +10,10 @@ export class UpdateUserDto {
   @MaxLength(20, { message: '账号最多20个字符' })
   username: string
 
-  @ApiProperty({ description: '密码', default: null })
-  @IsString({ message: 'password 类型错误，正确类型 string' })
-  @IsNotEmpty({ message: 'password 不能为空' })
-  password: string | null
+  // @ApiProperty({ description: '密码', default: null })
+  // @IsString({ message: 'password 类型错误，正确类型 string' })
+  // @IsNotEmpty({ message: 'password 不能为空' })
+  // password: string | null
 
   @ApiProperty({ description: '真实姓名', default: null })
   @IsString({ message: 'real_name 类型错误，正确类型 string' })

@@ -12,5 +12,5 @@ export class AuthService {
     private readonly config: ConfigService,
     private readonly userService: UserService,
   ) { }
-  
+
 }
