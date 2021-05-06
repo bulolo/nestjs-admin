@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator'
-import { BaseQueryDto } from 'src/modules/_base/baseQuery.dto'
+import { BasePageDto } from 'src/modules/_base/basePage.dto'
 
-export class QueryTenantDto extends BaseQueryDto {
+export class QueryTenantDto extends BasePageDto {
 
 }

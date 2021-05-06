@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator'
-import { BaseQueryDto } from 'src/modules/_base/baseQuery.dto'
+import { BasePageDto } from 'src/modules/_base/basePage.dto'
 
-export class QueryUserDto extends BaseQueryDto {
+export class QueryUserDto extends BasePageDto {
 
     @ApiProperty({ description: '用户名', required: false})
     username: string

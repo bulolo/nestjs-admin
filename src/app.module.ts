@@ -1,10 +1,12 @@
+
+
 import { TenantModule } from './modules/tenant/tenant.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoleModule } from './modules/role/role.module';
 import { UserModule } from './modules/user/user.module';
 import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionsFilter } from './common/exception/exception.filter';
+import { AllExceptionsFilter } from './common/exception/all-exception.filter';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/index'
@@ -39,15 +41,15 @@ import { RedisModule } from 'nestjs-redis';
     }),
     RedisModule.forRootAsync({
       inject: [ConfigService],
-      useFactory:  (configService: ConfigService) => configService.get('redis')
+      useFactory: (configService: ConfigService) => configService.get('redis')
     }),
   ],
   controllers: [],
   providers: [
-    // {
-    //   provide: APP_FILTER,
-    //   useClass: AllExceptionsFilter,
-    // }
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    }
   ],
 })
 export class AppModule { }

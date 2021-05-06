@@ -25,6 +25,7 @@ export class UserService {
 
 
   async createUser(dto: CreateUserDto): Promise<UserEntity | Result> {
+    console.log(dto)
     const existing = await this.findOneByUsername(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
     const salt = await genSalt()
@@ -39,7 +40,7 @@ export class UserService {
   async login(account: string, password: string): Promise<object | Result> {
     const user = await this.findOneByUsername(account)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
-    console.log('账号', password)
+    console.log('账号', account)
     console.log('密码', password)
     console.log('加密的密码', user.password)
     const checkPassword = await compare(password, user.password)
@@ -59,9 +60,9 @@ export class UserService {
     const [result, total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
     return {
       list: classToPlain(result),
-      count: total,
       page: page,
-      size: size
+      size: size,
+      count: total,
     }
   }
 

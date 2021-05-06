@@ -3,9 +3,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware'
 import { ConfigService } from "@nestjs/config"
-import { Logger } from '@nestjs/common'
+import { BadRequestException, Logger, ValidationError, ValidationPipe } from '@nestjs/common'
 import * as express from 'express'
-import { AllExceptionsFilter } from './common/exception/exception.filter';
+import { AllExceptionsFilter } from './common/exception/all-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -15,19 +15,30 @@ async function bootstrap() {
   //允许跨域
   app.enableCors();
 
+
+
   // For parsing application/json
-  app.use(express.json()) 
+  app.use(express.json())
   // For parsing application/x-www-form-urlencoded
-  app.use(express.urlencoded({ extended: true })) 
+  app.use(express.urlencoded({ extended: true }))
   // 日志中间件
-  app.use(new LoggerMiddleware().use)
+  // app.use(new LoggerMiddleware().use)
+
+
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true
+    },
+    // exceptionFactory: (errors: ValidationError[]) => new BadRequestException('参数校验错误')
+  }));
 
   // 所有异常
   app.useGlobalFilters(new AllExceptionsFilter())
 
   // 设置 api 访问前缀
   app.setGlobalPrefix('/api')
-
+  
   // swagger文档
   if (config.get<boolean>('app.swagger')) {
     const swaggerOptions = new DocumentBuilder()
@@ -47,7 +58,7 @@ async function bootstrap() {
   const appLocalPath = await app.getUrl()
 
   Logger.log(appLocalPath, '服务启动成功')
-  
+
   Logger.log(process.env.NODE_ENV, '当前启动环境')
 }
 bootstrap();

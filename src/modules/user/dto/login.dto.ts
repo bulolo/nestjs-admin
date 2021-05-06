@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator'
-import { BaseQueryDto } from 'src/modules/_base/baseQuery.dto'
+import { BasePageDto } from 'src/modules/_base/basePage.dto'
 
 export class LoginUserDto {
 
   @ApiProperty({ description: '用户名', required: true })
+  @IsString({ message: 'username 类型错误，正确类型 string' })
+  @IsNotEmpty({ message: 'username 不能为空' })
+  @MinLength(6, { message: '账号至少6个字符' })
+  @MaxLength(20, { message: '账号最多20个字符' })
   account: string
 
   @ApiProperty({ description: '密码', required: true })
+  @IsNotEmpty()
   password: string
 }

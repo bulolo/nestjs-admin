@@ -19,6 +19,7 @@ export class AuthController {
   @ApiOperation({ summary: '用户注册' })
   @ApiOkResponse({ type: UserEntity })
   async create(@Body() user: CreateUserDto): Promise<Result> {
+    console.log('user', user)
     const res = await this.userService.createUser(user)
     return Result.ok(res)
   }
