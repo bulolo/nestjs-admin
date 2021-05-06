@@ -1,6 +1,7 @@
 app:
   port: 3000
-  swagger: true
+  swagger: true,
+  passwordSecret: 'race'
 db:
   mysql:
     host: 'localhost'
@@ -37,3 +38,5 @@ jwt:
   secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
   expiresin: '2h'
   refreshExpiresIn: '24h'
+
+

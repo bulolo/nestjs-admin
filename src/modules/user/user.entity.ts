@@ -101,4 +101,13 @@ export class UserEntity extends BaseTenantEntity {
     })
     status: number | null;
 
+  @ApiProperty({ type: String, description: '密码加盐' })
+  @Column("varchar", {
+    name: "salt",
+    nullable: true,
+    comment: "密码加盐",
+    length: 100,
+  })
+  salt: string | null;
+
 }

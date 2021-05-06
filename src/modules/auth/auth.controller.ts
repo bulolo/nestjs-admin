@@ -26,7 +26,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登录' })
   async login(@Body() dto: LoginUserDto): Promise<Result> {
-    const res = await this.authService.login(dto.username, dto.password)
+    const res = await this.userService.login(dto.username, dto.password)
     return Result.ok(res)
   }
 

@@ -22,15 +22,15 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       const accessToken = req.get('Authorization')
       if (!accessToken) throw new UnauthorizedException('请先登录')
 
-      const atUserId = this.authService.verifyToken(accessToken)
+      const atUserId = this.userService.verifyToken(accessToken)
       if (atUserId) return this.activate(context)
       console.log(req.user)
       const refreshToken = req.get('RefreshToken')
-      const rtUserId = this.authService.verifyToken(refreshToken)
+      const rtUserId = this.userService.verifyToken(refreshToken)
       if (!rtUserId) throw new UnauthorizedException('当前登录已过期，请重新登录')
       const user = await this.userService.findOneById(rtUserId)
       if (user) {
-        const tokens = this.authService.genToken({ id: rtUserId })
+        const tokens = this.userService.genToken({ id: rtUserId })
         // request headers 对象 prop 属性全自动转成小写，
         // 所以 获取 request.headers['authorization'] 或 request.get('Authorization')
         // 重置属性 request.headers[authorization] = value

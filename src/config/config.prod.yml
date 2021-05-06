@@ -1,6 +1,7 @@
 app:
   port: 3002
   swagger: true
+  passwordSecret: 'race'
 db:
   mysql:
     host: 'localhost'
