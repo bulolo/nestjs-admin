@@ -28,14 +28,14 @@ export class UserService {
         if (existing) return Result.fail(HttpStatus.NOT_ACCEPTABLE, '账号已存在，请调整后重新注册！')
         const salt = await genSalt()
         dto.password = await hash(dto.password, salt)
-        const user = plainToClass(UserEntity, { salt, ...dto })
+        const user = plainToClass(UserEntity, { salt, ...dto }, { ignoreDecorators: true })
         console.log('user',user)
         const res = await this.userRep.save(user)
         return res
     }
 
     // 登录
-    async login(account: string, password: string): Promise<object> {
+  async login(account: string, password: string): Promise<object | Result> {
       const user = await this.findOneByUsername(account)
       if (!user) return Result.fail(HttpStatus.NOT_FOUND, '账号或密码错误')
       console.log('账号', password)

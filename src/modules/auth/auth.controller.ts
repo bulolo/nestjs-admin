@@ -29,5 +29,4 @@ export class AuthController {
     const res = await this.userService.login(dto.username, dto.password)
     return Result.ok(res)
   }
-
 }
