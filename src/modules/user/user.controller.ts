@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create.dto';
 import { QueryUserDto } from './dto/query.dto';
 import { UpdateUserDto } from './dto/update.dto';
 import { UserService } from './user.service';
+import { Permissions } from 'src/common/decorator/permissions.decorator'
 
 @ApiTags('用户账号相关')
 @Controller('v1/users')
@@ -19,11 +20,11 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
+  @Permissions('sys:user:list')
   async list(@Query() dto: QueryUserDto): Promise<Result> {
     console.log(dto)
     const res = await this.userService.page(dto)
     return Result.ok(res)
-    // throw new ForbiddenException()
   }
 
   @Post()
