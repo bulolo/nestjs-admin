@@ -7,7 +7,7 @@ import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
-@ApiTags('用户账号相关')
+@ApiTags('登录注册')
 @Controller('v1/auth')
 export class AuthController {
   constructor(

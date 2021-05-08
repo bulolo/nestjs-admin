@@ -46,7 +46,7 @@ async function bootstrap() {
       .setDescription('nestjs-admin 基于RABC的通用api文档')
       .setVersion('1.0')
       // .addTag('通用api接口')
-      .addBearerAuth()
+      .addBearerAuth({ in: 'header', type: 'http' })
       .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup('docs', app, document);

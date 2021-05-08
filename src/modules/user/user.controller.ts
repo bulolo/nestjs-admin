@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Result } from 'src/common/utils/result';
@@ -10,8 +10,10 @@ import { UpdateUserDto } from './dto/update.dto';
 import { UserService } from './user.service';
 import { Permissions } from 'src/common/decorator/permissions.decorator'
 
-@ApiTags('用户账号相关')
+
+@ApiTags('用户相关')
 @Controller('v1/users')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(

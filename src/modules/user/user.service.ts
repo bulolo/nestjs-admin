@@ -36,6 +36,7 @@ export class UserService {
   // 登录
   async login(account: string, password: string): Promise<object | Result> {
     const user = await this.findByUsername(account)
+    console.log("user", user)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     console.log('账号', account)
     console.log('密码', password)
