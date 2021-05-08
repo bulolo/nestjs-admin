@@ -11,8 +11,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt'
   imports: [TypeOrmModule.forFeature([UserEntity]),
   JwtModule.registerAsync({
     imports: [
-      ConfigModule,
-
+      ConfigModule
     ],
     useFactory: async (config: ConfigService) => ({
       secret: config.get('jwt.secretkey'),
