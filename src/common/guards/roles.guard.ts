@@ -11,6 +11,7 @@ export class RolesGuard implements CanActivate {
   ): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
+    console.log('当前用户', user)
     // 当前请求所需权限
     const currentPerm = this.reflector.get<string>('permissions', context.getHandler());
     console.log('当前所需权限:', currentPerm)

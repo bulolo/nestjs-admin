@@ -25,6 +25,7 @@ export class UserController {
     console.log(dto)
     const res = await this.userService.page(dto)
     return Result.ok(res)
+    // throw new ForbiddenException()
   }
 
   @Post()

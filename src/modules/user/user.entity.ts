@@ -23,6 +23,7 @@ export class UserEntity extends BaseTenantEntity {
     nullable: true,
     comment: "密码",
     length: 100,
+    select: false
   })
   password: string | null;
 
