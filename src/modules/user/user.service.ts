@@ -11,7 +11,6 @@ import { ConfigService } from '@nestjs/config';
 import { genSalt, hash, compare } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUserDto } from './dto/update.dto';
-// import { AuthService } from '../auth/auth.service';
 @Injectable()
 export class UserService {
   constructor(
@@ -19,14 +18,12 @@ export class UserService {
     private readonly userRep: Repository<UserEntity>,
     private readonly redisService: RedisService,
     private readonly config: ConfigService,
-    // private readonly authService: AuthService,
     private readonly jwtService: JwtService,
   ) { }
 
-
-  async createUser(dto: CreateUserDto): Promise<UserEntity | Result> {
+  async create(dto: CreateUserDto): Promise<UserEntity | Result> {
     console.log(dto)
-    const existing = await this.findOneByUsername(dto.username)
+    const existing = await this.findByUsername(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
     const salt = await genSalt()
     dto.password = await hash(dto.password, salt)
@@ -38,7 +35,7 @@ export class UserService {
 
   // 登录
   async login(account: string, password: string): Promise<object | Result> {
-    const user = await this.findOneByUsername(account)
+    const user = await this.findByUsername(account)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     console.log('账号', account)
     console.log('密码', password)
@@ -51,7 +48,8 @@ export class UserService {
     return data
   }
 
-  async findUsers(dto: QueryUserDto): Promise<object> {
+  // 分页列表查找
+  async page(dto: QueryUserDto): Promise<object> {
     const { page = 1, size = 10, username, status } = dto
     const where = {
       ...(status ? { status } : null),
@@ -66,7 +64,8 @@ export class UserService {
     }
   }
 
-  async findOneById(id: number): Promise<UserEntity> {
+  // 根据ID查找
+  async findById(id: number): Promise<UserEntity> {
     const res = await this.userRep.findOne(id)
     if (!res) {
       throw new NotFoundException()
@@ -74,20 +73,24 @@ export class UserService {
     return res
   }
 
-  async updateOneById(id: number, dto: UpdateUserDto): Promise<number> {
-    await this.findOneById(id)
+  // 根据ID更新
+  async updateById(id: number, dto: UpdateUserDto): Promise<UserEntity> {
+    await this.findById(id)
     let updateResult = 1
     const user = plainToClass(UserEntity, dto)
     const res = await this.userRep.update(id, user).catch(e => updateResult = 0);
-    return updateResult
+    return await this.findById(id)
   }
 
-  async deleteOneById(id: number): Promise<UpdateResult> {
-    await this.findOneById(id)
+  // 根据ID删除
+  async deleteById(id: number): Promise<UpdateResult> {
+    await this.findById(id)
     const res = await this.userRep.softDelete(id)
     return res
   }
-  async findOneByUsername(username: string): Promise<UserEntity> {
+
+  // 根据用户名查找
+  async findByUsername(username: string): Promise<UserEntity> {
     return await this.userRep.findOne({ username })
   }
 
@@ -97,6 +100,7 @@ export class UserService {
     const refreshToken = this.jwtService.sign(payload, { expiresIn: this.config.get('jwt.refreshExpiresIn') })
     return { accessToken, refreshToken }
   }
+
   // 刷新 token
   refreshToken(id: number): string {
     return this.jwtService.sign({ id })
@@ -112,7 +116,9 @@ export class UserService {
       return 0
     }
   }
+
+  // 根据JWT解析的ID校验用户
   async validateUserByJwt(payload: { id: number }): Promise<UserEntity> {
-    return await this.findOneById(payload.id)
+    return await this.findById(payload.id)
   }
 }

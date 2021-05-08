@@ -20,7 +20,7 @@ export class AuthController {
   @ApiOkResponse({ type: UserEntity })
   async create(@Body() user: CreateUserDto): Promise<Result> {
     console.log('user', user)
-    const res = await this.userService.createUser(user)
+    const res = await this.userService.create(user)
     return Result.ok(res)
   }
 

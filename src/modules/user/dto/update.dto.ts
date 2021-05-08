@@ -3,14 +3,15 @@ import { IsEmail, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber
 
 export class UpdateUserDto {
 
-  @ApiProperty({ description: '用户名', default: null })
+
+  @ApiProperty({ description: '用户名', required: true, default: null })
   @IsString({ message: 'username 类型错误，正确类型 string' })
   @IsNotEmpty({ message: 'username 不能为空' })
-  @MinLength(6, { message: '账号至少6个字符' })
-  @MaxLength(20, { message: '账号最多20个字符' })
+  @MinLength(6, { message: 'username至少6个字符' })
+  @MaxLength(20, { message: 'username最多20个字符' })
   username: string
 
-  // @ApiProperty({ description: '密码', default: null })
+  // @ApiProperty({ description: '密码', required: true, default: null })
   // @IsString({ message: 'password 类型错误，正确类型 string' })
   // @IsNotEmpty({ message: 'password 不能为空' })
   // password: string | null
@@ -20,7 +21,7 @@ export class UpdateUserDto {
   real_name: string | null
 
   @ApiProperty({ description: '头像', required: false, default: null })
-  @IsString({ message: 'avatar 类型错误，正确类型 string' })
+  // @IsString({ message: 'avatar 类型错误，正确类型 string' })
   head_url: string | null
 
   @ApiProperty({ description: '性别', required: false, default: null })
@@ -28,7 +29,7 @@ export class UpdateUserDto {
 
   @ApiProperty({ description: '邮箱', required: false, default: null })
   @IsString({ message: 'email 类型错误，正确类型 string' })
-  @IsEmail()
+  @IsEmail({}, { message: 'email 必须为邮箱地址' })
   @IsOptional()
   email: string | null
 
@@ -37,7 +38,7 @@ export class UpdateUserDto {
   @IsMobilePhone('zh-CN', { strictMode: false }, { message: '请输入正确的手机号' })
   mobile: string | null
 
-  @ApiProperty({ description: '部门ID', default: null,required: false })
+  @ApiProperty({ description: '部门ID', default: null, required: false })
   // @IsString({ message: '类型错误，正确类型 string' })
   dept_id: number | null
 

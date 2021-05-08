@@ -2,14 +2,11 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/modules/auth/auth.service';
 import { UserService } from 'src/modules/user/user.service';
-
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService,
     ) {
     super()
   }
@@ -28,7 +25,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       const refreshToken = req.get('RefreshToken')
       const rtUserId = this.userService.verifyToken(refreshToken)
       if (!rtUserId) throw new UnauthorizedException('当前登录已过期，请重新登录')
-      const user = await this.userService.findOneById(rtUserId)
+      const user = await this.userService.findById(rtUserId)
       if (user) {
         const tokens = this.userService.genToken({ id: rtUserId })
         // request headers 对象 prop 属性全自动转成小写，

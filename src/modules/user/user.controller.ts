@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-// import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from './dto/create.dto';
 import { QueryUserDto } from './dto/query.dto';
@@ -10,17 +11,17 @@ import { UserService } from './user.service';
 
 @ApiTags('用户账号相关')
 @Controller('v1/users')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(
     private readonly userService: UserService
   ) { }
 
-  // @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
   async list(@Query() dto: QueryUserDto): Promise<Result> {
     console.log(dto)
-    const res = await this.userService.findUsers(dto)
+    const res = await this.userService.page(dto)
     return Result.ok(res)
     // throw new ForbiddenException()
   }
@@ -28,7 +29,7 @@ export class UserController {
   @Post()
   @ApiOperation({ summary: '创建用户' })
   async create(@Body() dto: CreateUserDto): Promise<Result> {
-    const res = await this.userService.createUser(dto)
+    const res = await this.userService.create(dto)
     return Result.ok(res)
   }
 
@@ -38,7 +39,7 @@ export class UserController {
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
     console.log(id)
     console.log(typeof id);
-    const user = await this.userService.findOneById(id)
+    const user = await this.userService.findById(id)
     return Result.ok(user)
   }
 
@@ -46,7 +47,7 @@ export class UserController {
   @ApiOperation({ summary: '更新用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   async update(@Param('id', new ParseIntPipe()) id, @Body() dto: UpdateUserDto): Promise<Result> {
-    const user = await this.userService.updateOneById(id, dto)
+    const user = await this.userService.updateById(id, dto)
     return Result.ok(user)
   }
 
@@ -54,7 +55,7 @@ export class UserController {
   @ApiOperation({ summary: '删除用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   async delete(@Param('id', new ParseIntPipe()) id): Promise<Result> {
-    const user = await this.userService.deleteOneById(id)
+    const user = await this.userService.deleteById(id)
     return Result.ok(user)
   }
 }
