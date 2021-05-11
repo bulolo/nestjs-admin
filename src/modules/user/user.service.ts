@@ -54,7 +54,7 @@ export class UserService {
   }
 
   // 分页列表查找
-  async page(dto: QueryUserDto): Promise<object> {
+  async page(dto: QueryUserDto): Promise<Record<string, any>> {
     const { page = 1, size = 10, username, status } = dto
     const where = {
       ...(status ? { status } : null),
@@ -70,37 +70,38 @@ export class UserService {
   }
 
   // 根据ID查找
-  async findById(id: number): Promise<UserEntity> {
+  async findById(id: number): Promise<Record<string, any>> {
     const res = await this.userRep.findOne(id)
     if (!res) {
       throw new NotFoundException()
     }
-    return res
+    return classToPlain(res)
   }
 
   // 根据ID更新
-  async updateById(id: number, dto: UpdateUserDto): Promise<UserEntity> {
+  async updateById(id: number, dto: UpdateUserDto): Promise<Record<string, any>> {
     await this.findById(id)
     let updateResult = 1
     const user = plainToClass(UserEntity, dto)
-    const res = await this.userRep.update(id, user).catch(e => updateResult = 0);
-    return await this.findById(id)
+    await this.userRep.update(id, user).catch(e => updateResult = 0);
+    return classToPlain(await this.findById(id))
   }
 
   // 根据ID删除
-  async deleteById(id: number): Promise<UpdateResult> {
+  async deleteById(id: number): Promise<Record<string, any>> {
     await this.findById(id)
     const res = await this.userRep.softDelete(id)
     return res
   }
 
   // 根据用户名查找
-  async findByAccount(username: string): Promise<UserEntity> {
-    return await this.userRep.findOne({ username })
+  async findByAccount(username: string): Promise<Record<string, any>> {
+    const user = await this.userRep.findOne({ username })
+    return user
   }
 
   // 生成 token
-  genToken(payload: { id: number }): Record<string, unknown> {
+  genToken(payload: { id: number }): Record<string, any> {
     const accessToken = `Bearer ${this.jwtService.sign(payload)}`
     const refreshToken = this.jwtService.sign(payload, { expiresIn: this.config.get('jwt.refreshExpiresIn') })
     return { accessToken, refreshToken }
@@ -123,7 +124,8 @@ export class UserService {
   }
 
   // 根据JWT解析的ID校验用户
-  async validateUserByJwt(payload: { id: number }): Promise<UserEntity> {
-    return await this.findById(payload.id)
+  async validateUserByJwt(payload: { id: number }): Promise<Record<string, any>> {
+    const user = await this.findById(payload.id)
+    return classToPlain(user)
   }
 }

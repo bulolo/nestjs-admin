@@ -111,6 +111,7 @@ export class UserEntity extends BaseTenantEntity {
     comment: "密码加盐",
     length: 100,
   })
+  @Exclude({ toPlainOnly: true })
   salt: string | null;
 
 }
