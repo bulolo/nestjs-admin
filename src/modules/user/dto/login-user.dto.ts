@@ -5,8 +5,8 @@ import { BasePageDto } from 'src/modules/_base/basePage.dto'
 export class LoginUserDto {
 
   @ApiProperty({ description: '用户名', required: true })
-  @IsString({ message: 'username 类型错误，正确类型 string' })
-  @IsNotEmpty({ message: 'username 不能为空' })
+  @IsString({ message: 'account 类型错误，正确类型 string' })
+  @IsNotEmpty({ message: 'account 不能为空' })
   @MinLength(6, { message: '账号至少6个字符' })
   @MaxLength(20, { message: '账号最多20个字符' })
   account: string

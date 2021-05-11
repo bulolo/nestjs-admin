@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "../_base/base.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
@@ -25,6 +26,7 @@ export class UserEntity extends BaseTenantEntity {
     length: 100,
     // select: false
   })
+  @Exclude({ toPlainOnly: true })
   password: string | null;
 
   @ApiProperty({ type: String, description: '姓名' })

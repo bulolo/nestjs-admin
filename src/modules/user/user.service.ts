@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { Result } from 'src/common/utils/result';
-import { CreateUserDto } from './dto/create.dto';
-import { QueryUserDto } from './dto/query.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { QueryUserDto } from './dto/query-user.dto';
 import { classToPlain, plainToClass } from 'class-transformer';
 import { RedisService } from 'nestjs-redis';
 import { ConfigService } from '@nestjs/config';
 import { genSalt, hash, compare } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
-import { UpdateUserDto } from './dto/update.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -21,9 +21,10 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) { }
 
+  // 创建用户
   async create(dto: CreateUserDto): Promise<UserEntity | Result> {
     console.log(dto)
-    const existing = await this.findByUsername(dto.username)
+    const existing = await this.findByAccount(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
     const salt = await genSalt()
     dto.password = await hash(dto.password, salt)
@@ -35,7 +36,7 @@ export class UserService {
 
   // 登录
   async login(account: string, password: string): Promise<object | Result> {
-    const user = await this.findByUsername(account)
+    const user = await this.findByAccount(account)
     console.log("user", user)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     console.log('账号', account)
@@ -46,7 +47,10 @@ export class UserService {
     if (!checkPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     // 生成 token
     const data = this.genToken({ id: user.id })
-    return data
+    return {
+      token: data,
+      user: classToPlain(user),
+    }
   }
 
   // 分页列表查找
@@ -91,7 +95,7 @@ export class UserService {
   }
 
   // 根据用户名查找
-  async findByUsername(username: string): Promise<UserEntity> {
+  async findByAccount(username: string): Promise<UserEntity> {
     return await this.userRep.findOne({ username })
   }
 

@@ -4,9 +4,9 @@ import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiPara
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Result } from 'src/common/utils/result';
-import { CreateUserDto } from './dto/create.dto';
-import { QueryUserDto } from './dto/query.dto';
-import { UpdateUserDto } from './dto/update.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { QueryUserDto } from './dto/query-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 import { Permissions } from 'src/common/decorator/permissions.decorator'
 
