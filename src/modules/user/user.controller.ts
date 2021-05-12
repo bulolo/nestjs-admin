@@ -24,7 +24,6 @@ export class UserController {
   @ApiOperation({ summary: '查询用户列表' })
   // @Permissions('sys:user:list')
   async list(@Query() dto: QueryUserDto): Promise<Result> {
-    console.log(dto)
     const res = await this.userService.page(dto)
     return Result.ok(res)
   }

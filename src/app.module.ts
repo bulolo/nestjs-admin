@@ -38,6 +38,7 @@ import { RedisModule } from 'nestjs-redis';
       },
     }),
     RedisModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => configService.get('redis')
     }),

@@ -16,7 +16,7 @@ import { RedisKeyPrefix } from 'src/common/enums/redis-prefix.enum';
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRep: Repository<UserEntity>,
+    private readonly userRepo: Repository<UserEntity>,
     private readonly redisService: RedisService,
     private readonly config: ConfigService,
     private readonly jwtService: JwtService,
@@ -31,7 +31,7 @@ export class UserService {
     dto.password = await hash(dto.password, salt)
     const user = plainToClass(UserEntity, { salt, ...dto }, { ignoreDecorators: true })
     console.log('user', user)
-    const res = await this.userRep.save(user)
+    const res = await this.userRepo.save(user)
     return res
   }
 
@@ -61,7 +61,12 @@ export class UserService {
       ...(status ? { status } : null),
       ...(username ? { username: Like(`%${username}%`) } : null),
     }
-    const [result, total] = await this.userRep.findAndCount({ where, order: { id: 'DESC' }, skip: size * (page - 1), take: size })
+    const [result, total] = await this.userRepo.findAndCount({
+      where,
+      order: { created_at: 'DESC' },
+      skip: size * (page - 1),
+      take: size
+    })
     return {
       list: classToPlain(result),
       page: page,
@@ -75,7 +80,7 @@ export class UserService {
     const redis_user = await this.redisService.getClient('admin').hgetall(`user:info:${id}`)
     let user = plainToClass(UserEntity, redis_user, { enableImplicitConversion: true })
     if (!user?.id) {
-      user = await this.userRep.findOne(id)
+      user = await this.userRepo.findOne(id)
       if (!user) {
         throw new NotFoundException()
       }
@@ -94,7 +99,7 @@ export class UserService {
     }
     console.log(existing)
     const user = plainToClass(UserEntity, dto)
-    await this.userRep.update(id, user)
+    await this.userRepo.update(id, user)
     await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${id}`, classToPlain(dto))
     return classToPlain(await this.findById(id))
   }
@@ -102,13 +107,13 @@ export class UserService {
   // 根据ID删除
   async deleteById(id: number): Promise<Record<string, any>> {
     await this.findById(id)
-    const res = await this.userRep.softDelete(id)
+    const res = await this.userRepo.softDelete(id)
     return res
   }
 
   // 根据用户名查找
   async findByAccount(username: string): Promise<Record<string, any>> {
-    const user = await this.userRep.findOne({ username })
+    const user = await this.userRepo.findOne({ username })
     return user
   }
 

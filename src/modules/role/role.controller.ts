@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Result } from 'src/common/utils/result';
 import { UserService } from '../user/user.service';
-import { CreateRoleDto } from './dto/create.dto';
-import { QueryRoleDto } from './dto/query.dto';
-import { UpdateRoleDto } from './dto/update.dto';
+import { CreateRoleDto } from './dto/create-role.dto';
+import { QueryRoleDto } from './dto/query-role.dto';
+import { UpdateRoleDto } from './dto/update-role.dto';
 import { RoleService } from './role.service';
 
 @ApiTags('角色相关')
@@ -16,7 +16,8 @@ export class RoleController {
   @Get()
   @ApiOperation({ summary: '查询角色列表' })
   async list(@Query() dto: QueryRoleDto): Promise<Result> {
-    return
+    const res = await this.roleService.page(dto)
+    return Result.ok(res)
   }
 
   @Post()
