@@ -1,5 +1,3 @@
-
-
 import { TenantModule } from './modules/tenant/tenant.module';
 import { MenuModule } from './modules/menu/menu.module';
 import { AuthModule } from './modules/auth/auth.module';

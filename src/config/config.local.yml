@@ -23,20 +23,20 @@ redis:
     host: 'localhost'
     port: 6379
     db: 0
-    keyPrefix: 'auth:'
+    # keyPrefix: 'auth:'
   - name: 'admin'
     host: 'localhost'
     port: 6379
     db: 1
-    keyPrefix: 'admin:'
+    # keyPrefix: 'admin:'
   - name: 'app'
     port: 6379
     db: 2
-    keyPrefix: 'app:'
+    # keyPrefix: 'app:'
 
 jwt:
   secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
-  expiresin: '2h'
+  expiresin: '12h'
   refreshExpiresIn: '24h'
 
 

@@ -11,6 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { genSalt, hash, compare } from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RedisKeyPrefix } from 'src/common/enums/redis-prefix.enum';
 @Injectable()
 export class UserService {
   constructor(
@@ -71,19 +72,30 @@ export class UserService {
 
   // 根据ID查找
   async findById(id: number): Promise<Record<string, any>> {
-    const res = await this.userRep.findOne(id)
-    if (!res) {
-      throw new NotFoundException()
+    const redis_user = await this.redisService.getClient('admin').hgetall(`user:info:${id}`)
+    let user = plainToClass(UserEntity, redis_user, { enableImplicitConversion: true })
+    if (!user?.id) {
+      user = await this.userRep.findOne(id)
+      if (!user) {
+        throw new NotFoundException()
+      }
+      await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${id}`, classToPlain(user))
     }
-    return classToPlain(res)
+    return classToPlain(user)
   }
 
   // 根据ID更新
   async updateById(id: number, dto: UpdateUserDto): Promise<Record<string, any>> {
-    await this.findById(id)
-    let updateResult = 1
+    const existing = await this.findById(id)
+    if (dto.password) {
+      if (dto.password !== dto.confirmPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_ACCEPTABLE);
+      const salt = await genSalt()
+      dto.password = await hash(dto.password, existing.salt)
+    }
+    console.log(existing)
     const user = plainToClass(UserEntity, dto)
-    await this.userRep.update(id, user).catch(e => updateResult = 0);
+    await this.userRep.update(id, user)
+    await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${id}`, classToPlain(dto))
     return classToPlain(await this.findById(id))
   }
 

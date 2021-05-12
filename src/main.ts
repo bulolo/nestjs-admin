@@ -32,10 +32,11 @@ async function bootstrap() {
       max: 1000, // limit each IP to 100 requests per windowMs
     }),
   )
-  // CSRF保护
-  app.use(csurf())
   // 漏洞保护
   app.use(helmet());
+  // CSRF保护
+  // app.use(csurf())
+
   // 日志中间件
   // app.use(new LoggerMiddleware().use)
 

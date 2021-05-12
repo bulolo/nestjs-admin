@@ -7,7 +7,7 @@ import { UserService } from 'src/modules/user/user.service';
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(
     private readonly userService: UserService,
-    ) {
+  ) {
     super()
   }
   async canActivate(
@@ -21,7 +21,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
       const atUserId = this.userService.verifyToken(accessToken)
       if (atUserId) return this.activate(context)
-      console.log(req.user)
+      console.log('JwtAuthGuard', req.user)
       const refreshToken = req.get('RefreshToken')
       const rtUserId = this.userService.verifyToken(refreshToken)
       if (!rtUserId) throw new UnauthorizedException('当前登录已过期，请重新登录')

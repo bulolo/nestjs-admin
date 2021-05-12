@@ -18,10 +18,20 @@ db:
     bigNumberStrings: false
     timezone": "local"
 redis:
-  host: 'localhost'
-  port: 6379
-  db: 0
-  keyPrefix: 'nest:'
+  - name: 'auth'
+    host: 'localhost'
+    port: 6379
+    db: 0
+    # keyPrefix: 'auth:'
+  - name: 'admin'
+    host: 'localhost'
+    port: 6379
+    db: 1
+    # keyPrefix: 'admin:'
+  - name: 'app'
+    port: 6379
+    db: 2
+    # keyPrefix: 'app:'
 
 jwt:
   secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'

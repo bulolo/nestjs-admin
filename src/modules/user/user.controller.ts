@@ -22,12 +22,11 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
-  @Permissions('sys:user:list')
+  // @Permissions('sys:user:list')
   async list(@Query() dto: QueryUserDto): Promise<Result> {
     console.log(dto)
     const res = await this.userService.page(dto)
     return Result.ok(res)
-    // throw new ForbiddenException()
   }
 
   @Post()
@@ -41,8 +40,6 @@ export class UserController {
   @ApiOperation({ summary: '查询用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
-    console.log(id)
-    console.log(typeof id);
     const user = await this.userService.findById(id)
     return Result.ok(user)
   }
