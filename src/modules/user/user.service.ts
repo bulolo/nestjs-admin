@@ -22,7 +22,7 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) { }
 
-  // 创建用户
+  // 创建
   async create(dto: CreateUserDto): Promise<Record<string, any>> {
     const existing = await this.findByAccount(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
@@ -38,11 +38,11 @@ export class UserService {
     const user = await this.findByAccount(account)
     console.log("user", user)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
-    Logger.log('账号', account)
-    Logger.log('密码', password)
-    Logger.log('加密的密码', user.password)
+    Logger.log(account, '账号')
+    Logger.log(password, '密码')
+    Logger.log(user.password, '加密的密码')
     const checkPassword = await compare(password, user.password)
-    Logger.log('是否一致', checkPassword)
+    Logger.log(checkPassword, '密码是否一致')
     if (!checkPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     // 生成 token
     const data = this.genToken({ id: user.id })

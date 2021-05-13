@@ -15,13 +15,14 @@ export class RoleService {
     private readonly roleRepo: Repository<RoleEntity>,
     private readonly config: ConfigService,
   ) { }
-  // 创建角色
+
+  // 创建
   async create(dto: CreateRoleDto): Promise<Record<string, any>> {
     const data = plainToClass(RoleEntity, dto, { ignoreDecorators: true })
     const res = await this.roleRepo.save(data)
     return res
   }
-  
+
   // 分页列表查找
   async page(dto: QueryRoleDto): Promise<Record<string, any>> {
     const { page = 1, size = 10, name } = dto
