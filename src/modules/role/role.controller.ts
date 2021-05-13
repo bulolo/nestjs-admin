@@ -23,7 +23,8 @@ export class RoleController {
   @Post()
   @ApiOperation({ summary: '创建角色' })
   async create(@Body() dto: CreateRoleDto): Promise<Result> {
-    return
+    const res = await this.roleService.create(dto)
+    return Result.ok(res)
   }
 
   @Get(':id')

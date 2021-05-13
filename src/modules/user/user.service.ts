@@ -23,7 +23,7 @@ export class UserService {
   ) { }
 
   // 创建用户
-  async create(dto: CreateUserDto): Promise<UserEntity | Result> {
+  async create(dto: CreateUserDto): Promise<Record<string, any>> {
     console.log(dto)
     const existing = await this.findByAccount(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   // 登录
-  async login(account: string, password: string): Promise<object | Result> {
+  async login(account: string, password: string): Promise<Record<string, any>> {
     const user = await this.findByAccount(account)
     console.log("user", user)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
