@@ -13,7 +13,6 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 @Controller('v1/menus')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class MenuController {
-
   constructor(
     private readonly menuService: MenuService
   ) { }

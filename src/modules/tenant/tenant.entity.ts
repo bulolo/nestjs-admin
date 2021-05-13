@@ -5,7 +5,7 @@ import { BaseTenantEntity } from "../_base/baseTenant.entity";
 @Index("uk_tenant_code", ["tenant_code"], { unique: true })
   @Index("idx_created_at", ["created_at"], {})
   @Entity("sys_tenant", { schema: "race_nestjs_admin" })
-export class sys_tenant extends BaseTenantEntity{
+export class TenantEntity extends BaseTenantEntity{
 
   @Column("varchar", {
     name: "tenant_name",
