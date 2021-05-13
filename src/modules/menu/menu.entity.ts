@@ -4,7 +4,7 @@ import { BaseEntity } from "../_base/base.entity";
 @Index("idx_pid", ["pid"], {})
 @Index("idx_sort", ["sort"], {})
   @Entity("sys_menu", { schema: "race_nestjs_admin" })
-export class sys_menu extends BaseEntity {
+export class MenuEntity extends BaseEntity {
 
   @Column("bigint", {
     name: "pid",
@@ -24,7 +24,7 @@ export class sys_menu extends BaseEntity {
   @Column("varchar", {
     name: "permissions",
     nullable: true,
-    comment: "授权(多个用逗号分隔，如：sys:user:list,sys:user:save)",
+    comment: "授权(多个用逗号分隔，如：sys:user:list,sys:user:add)",
     length: 500,
   })
   permissions: string | null;
