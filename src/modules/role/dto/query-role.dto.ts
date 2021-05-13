@@ -3,6 +3,7 @@ import { IsEmail, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber
 import { BasePageDto } from 'src/modules/_base/basePage.dto'
 
 export class QueryRoleDto extends BasePageDto{
+
   @ApiProperty({ description: '名称', required: false })
   name: string
 
@@ -11,4 +12,5 @@ export class QueryRoleDto extends BasePageDto{
 
   @ApiProperty({ description: '备注', required: false })
   remark: number
+  
 }

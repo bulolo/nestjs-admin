@@ -46,8 +46,8 @@ export class RoleController {
   @ApiOperation({ summary: '更新角色' })
   @ApiParam({ name: 'id', description: '角色id' })
   @Permissions('sys:role:update')
-  async update(@Param('id', new ParseIntPipe()) id, @Body() dto: UpdateRoleDto): Promise<Result> {
-    const res = await this.roleService.updateById(id, dto)
+  async update(@Body() dto: UpdateRoleDto): Promise<Result> {
+    const res = await this.roleService.updateById(dto)
     return Result.ok(res)
   }
 

@@ -88,8 +88,8 @@ export class UserService {
   }
 
   // 根据ID更新
-  async updateById(id: number, dto: UpdateUserDto): Promise<Record<string, any>> {
-    const existing = await this.findById(id)
+  async updateById(dto: UpdateUserDto): Promise<Record<string, any>> {
+    const existing = await this.findById(dto.id)
     if (dto.password) {
       if (dto.password !== dto.confirmPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_ACCEPTABLE);
       const salt = await genSalt()
@@ -97,9 +97,9 @@ export class UserService {
     }
     console.log(existing)
     const user = plainToClass(UserEntity, dto)
-    await this.userRepo.update(id, user)
-    await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${id}`, classToPlain(dto))
-    return classToPlain(await this.findById(id))
+    await this.userRepo.update(dto.id, user)
+    await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${dto.id}`, classToPlain(dto))
+    return classToPlain(await this.findById(dto.id))
   }
 
   // 根据ID删除

@@ -49,8 +49,8 @@ export class UserController {
   @ApiOperation({ summary: '更新用户' })
   @ApiParam({ name: 'id', description: '用户id' })
   @Permissions('sys:user:update')
-  async update(@Param('id', new ParseIntPipe()) id, @Body() dto: UpdateUserDto): Promise<Result> {
-    const res = await this.userService.updateById(id, dto)
+  async update(@Body() dto: UpdateUserDto): Promise<Result> {
+    const res = await this.userService.updateById(dto)
     return Result.ok(res)
   }
 

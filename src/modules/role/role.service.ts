@@ -53,10 +53,10 @@ export class RoleService {
   }
 
   // 根据ID更新
-  async updateById(id: number, dto: UpdateRoleDto): Promise<Record<string, any>> {
-    const existing = await this.findById(id)
-    await this.roleRepo.update(id, existing)
-    return classToPlain(await this.findById(id))
+  async updateById(dto: UpdateRoleDto): Promise<Record<string, any>> {
+    const existing = await this.findById(dto.id)
+    await this.roleRepo.update(dto.id, existing)
+    return classToPlain(await this.findById(dto.id))
   }
 
   // 根据ID删除

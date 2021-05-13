@@ -2,7 +2,10 @@ import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator'
 
 export class UpdateUserDto {
-
+  @ApiProperty({ description: 'id' })
+  @IsNumber({}, { message: 'id 类型错误，正确类型 number' })
+  @IsNotEmpty({ message: 'id 不能为空' })
+  id: number
 
   @ApiProperty({ description: '用户名', required: false, default: null })
   @IsString({ message: 'username 类型错误，正确类型 string' })
