@@ -37,6 +37,7 @@
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
     "csurf": "^1.11.0",
+    "dayjs": "^1.10.4",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.6.0",
     "js-yaml": "^3.14.1",

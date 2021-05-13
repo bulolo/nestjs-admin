@@ -2417,6 +2417,11 @@
   "resolved" "https://registry.npm.taobao.org/dateformat/download/dateformat-2.2.0.tgz"
   "version" "2.2.0"
 
+"dayjs@^1.10.4":
+  "integrity" "sha1-jlRKm4aD9heD9XCYCoqA6vVKseI="
+  "resolved" "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.4.tgz?cache=0&sync_timestamp=1611310021152&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.10.4.tgz"
+  "version" "1.10.4"
+
 "debug@^2.2.0":
   "integrity" "sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8="
   "resolved" "https://registry.npm.taobao.org/debug/download/debug-2.6.9.tgz?cache=0&sync_timestamp=1607566533140&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdebug%2Fdownload%2Fdebug-2.6.9.tgz"
