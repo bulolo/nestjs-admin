@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository, UpdateResult } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -24,13 +24,11 @@ export class UserService {
 
   // 创建用户
   async create(dto: CreateUserDto): Promise<Record<string, any>> {
-    console.log(dto)
     const existing = await this.findByAccount(dto.username)
     if (existing) throw new HttpException('账号已存在，请调整后重新注册！', HttpStatus.NOT_ACCEPTABLE);
     const salt = await genSalt()
     dto.password = await hash(dto.password, salt)
     const user = plainToClass(UserEntity, { salt, ...dto }, { ignoreDecorators: true })
-    console.log('user', user)
     const res = await this.userRepo.save(user)
     return res
   }
@@ -40,11 +38,11 @@ export class UserService {
     const user = await this.findByAccount(account)
     console.log("user", user)
     if (!user) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
-    console.log('账号', account)
-    console.log('密码', password)
-    console.log('加密的密码', user.password)
+    Logger.log('账号', account)
+    Logger.log('密码', password)
+    Logger.log('加密的密码', user.password)
     const checkPassword = await compare(password, user.password)
-    console.log('是否一致', checkPassword)
+    Logger.log('是否一致', checkPassword)
     if (!checkPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_FOUND);
     // 生成 token
     const data = this.genToken({ id: user.id })

@@ -13,12 +13,9 @@ import { AllExceptionsFilter } from './common/exception/all-exception.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-
   const config = app.get(ConfigService)
-
   //允许跨域
   app.enableCors()
-
   // gzip压缩
   app.use(compression())
   // For parsing application/json
@@ -38,7 +35,7 @@ async function bootstrap() {
   // app.use(csurf())
 
   // 日志中间件
-  // app.use(new LoggerMiddleware().use)
+  app.use(new LoggerMiddleware().use)
 
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
@@ -47,13 +44,10 @@ async function bootstrap() {
     },
     // exceptionFactory: (errors: ValidationError[]) => new BadRequestException('参数校验错误')
   }))
-
   // 所有异常
   app.useGlobalFilters(new AllExceptionsFilter())
-
   // 设置 api 访问前缀
   app.setGlobalPrefix('/api')
-
   // swagger文档
   if (config.get<boolean>('app.swagger')) {
     const swaggerOptions = new DocumentBuilder()
@@ -67,13 +61,9 @@ async function bootstrap() {
     SwaggerModule.setup('docs', app, document)
     Logger.log(`/docs`, 'swagger启动成功')
   }
-
   await app.listen(config.get<number>('app.port') || 8080)
-
   const appLocalPath = await app.getUrl()
-
   Logger.log(appLocalPath, '服务启动成功')
-
   Logger.log(process.env.NODE_ENV, '当前启动环境')
 }
 bootstrap()

@@ -22,7 +22,7 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: '查询用户列表' })
-  // @Permissions('sys:user:list')
+  @Permissions('sys:user:list')
   async list(@Query() dto: QueryUserDto): Promise<Result> {
     const res = await this.userService.page(dto)
     return Result.ok(res)
@@ -30,6 +30,7 @@ export class UserController {
 
   @Post()
   @ApiOperation({ summary: '创建用户' })
+  @Permissions('sys:user:add')
   async create(@Body() dto: CreateUserDto): Promise<Result> {
     const res = await this.userService.create(dto)
     return Result.ok(res)
@@ -38,24 +39,27 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: '查询用户' })
   @ApiParam({ name: 'id', description: '用户id' })
+  @Permissions('sys:user:info')
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
-    const user = await this.userService.findById(id)
-    return Result.ok(user)
+    const res = await this.userService.findById(id)
+    return Result.ok(res)
   }
 
   @Put(':id')
   @ApiOperation({ summary: '更新用户' })
   @ApiParam({ name: 'id', description: '用户id' })
+  @Permissions('sys:user:update')
   async update(@Param('id', new ParseIntPipe()) id, @Body() dto: UpdateUserDto): Promise<Result> {
-    const user = await this.userService.updateById(id, dto)
-    return Result.ok(user)
+    const res = await this.userService.updateById(id, dto)
+    return Result.ok(res)
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除用户' })
   @ApiParam({ name: 'id', description: '用户id' })
+  @Permissions('sys:user:delete')
   async delete(@Param('id', new ParseIntPipe()) id): Promise<Result> {
-    const user = await this.userService.deleteById(id)
-    return Result.ok(user)
+    const res = await this.userService.deleteById(id)
+    return Result.ok(res)
   }
 }

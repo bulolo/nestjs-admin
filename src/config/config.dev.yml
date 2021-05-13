@@ -37,3 +37,6 @@ jwt:
   secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
   expiresin: '2h'
   refreshExpiresIn: '24h'
+  
+permissions:
+  close: true

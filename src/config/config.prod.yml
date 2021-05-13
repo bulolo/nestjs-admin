@@ -16,7 +16,7 @@ db:
     dropSchema: false
     synchronize: true
     bigNumberStrings: false
-    timezone": "local"
+    timezone": 'local'
 redis:
   - name: 'auth'
     host: 'localhost'
@@ -37,3 +37,6 @@ jwt:
   secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
   expiresin: '2h'
   refreshExpiresIn: '24h'
+  
+permissions:
+  close: true

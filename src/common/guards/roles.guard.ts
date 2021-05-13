@@ -1,11 +1,12 @@
 
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) { }
+  constructor(private reflector: Reflector, private readonly config: ConfigService) { }
   async canActivate(
     context: ExecutionContext,
   ): Promise<boolean> {
@@ -19,6 +20,10 @@ export class RolesGuard implements CanActivate {
     if (!currentPerm) {
       return true;
     }
+    if (this.config.get('permissions.close')) {
+      console.log('【tip:】当前角色权限校验已关闭')
+    } else {
+      console.log('【tip:】当前角色权限校验已开启')
     // 根据用户id 查询所拥有的权限
     // const permList = await this.permSerivce.findUserPerms(user.id)
     // const perms: string[] = []
@@ -28,6 +33,7 @@ export class RolesGuard implements CanActivate {
     //  匹配权限
     // if (perms.includes(currentPerm)) return true
     // throw new ForbiddenException()
+    }
     return true
   }
 }
