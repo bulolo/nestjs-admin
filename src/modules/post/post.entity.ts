@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
 
 @Entity("sys_post", { schema: "race_nestjs_admin" })
-export class sys_post extends BaseTenantEntity {
+export class PostEntity extends BaseTenantEntity {
 
 
   @Column("varchar", {

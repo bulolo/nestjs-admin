@@ -22,6 +22,6 @@ export class RoleEntity extends BaseTenantEntity {
   remark: string | null;
 
   @Column("bigint", { name: "dept_id", nullable: true, comment: "部门ID" })
-  dept_id: string | null;
+  dept_id: number | null;
 
 }

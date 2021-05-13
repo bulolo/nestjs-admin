@@ -4,7 +4,7 @@ import { User } from 'src/common/decorator/user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { Result } from 'src/common/utils/result';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { LoginUserDto } from '../user/dto/login-user.dto';
+import { LoginAuthDto } from './dto/login-auth.dto';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
@@ -28,7 +28,7 @@ export class AuthController {
 
   @Post('login')
   @ApiOperation({ summary: '登录' })
-  async login(@Body() dto: LoginUserDto): Promise<Result> {
+  async login(@Body() dto: LoginAuthDto): Promise<Result> {
     const res = await this.userService.login(dto.account, dto.password)
     return Result.ok(res)
   }

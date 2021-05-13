@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator'
 import { BasePageDto } from 'src/modules/_base/basePage.dto'
 
-export class LoginUserDto {
+export class LoginAuthDto {
 
   @ApiProperty({ description: '用户名', required: true })
   @IsString({ message: 'account 类型错误，正确类型 string' })
