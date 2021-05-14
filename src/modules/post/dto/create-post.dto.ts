@@ -7,7 +7,7 @@ export class CreatePostDto {
   @IsString()
   post_name: string
 
-  @ApiProperty({ description: '名称', required: true })
+  @ApiProperty({ description: ' 编码', required: true })
   @IsString()
   post_code: string
 }

@@ -7,7 +7,7 @@ import { BaseTenantEntity } from "../_base/baseTenant.entity";
 export class DeptEntity extends BaseTenantEntity {
 
   @Column("bigint", { name: "pid", nullable: true, comment: "上级ID" })
-  pid: string | null;
+  pid: number | null;
 
   @Column("varchar", {
     name: "pids",

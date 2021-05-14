@@ -8,5 +8,15 @@ export class UpdateDeptDto {
   @IsNotEmpty({ message: 'id 不能为空' })
   id: number
 
-  
+  @ApiProperty({ description: '名称', required: false })
+  @IsString()
+  name: string
+
+  @ApiProperty({ description: '上级ID', required: false })
+  @IsNumber()
+  pid: number
+
+  @ApiProperty({ description: '排序', required: false })
+  @IsNumber()
+  sort: number
 }
