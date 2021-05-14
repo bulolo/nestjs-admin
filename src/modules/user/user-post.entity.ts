@@ -10,6 +10,6 @@ export class sys_user_post extends BaseEntity{
   post_id: string | null;
 
   @Column("bigint", { name: "user_id", nullable: true, comment: "用户ID" })
-  user_id: string | null;
+  user_id: number | null;
 
 }

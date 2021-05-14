@@ -11,7 +11,7 @@ export class MenuEntity extends BaseEntity {
     nullable: true,
     comment: "上级ID，一级菜单为0",
   })
-  pid: string | null;
+  pid: number | null;
   
   @Column("varchar", {
     name: "name",

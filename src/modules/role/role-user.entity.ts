@@ -7,9 +7,9 @@ import { BaseEntity } from "../_base/base.entity";
 export class sys_role_user extends BaseEntity{
 
   @Column("bigint", { name: "role_id", nullable: true, comment: "角色ID" })
-  role_id: string | null;
+  role_id: number | null;
 
   @Column("bigint", { name: "user_id", nullable: true, comment: "用户ID" })
-  user_id: string | null;
+  user_id: number | null;
 
 }

@@ -37,7 +37,7 @@ export class TenantEntity extends BaseTenantEntity{
     comment: "登录账号ID",
     unsigned: true,
   })
-  user_id: string | null;
+  user_id: number | null;
 
   @Column("varchar", {
     name: "username",
