@@ -12,6 +12,14 @@ export class MenuEntity extends BaseEntity {
     comment: "上级ID，一级菜单为0",
   })
   pid: string | null;
+  
+  @Column("varchar", {
+    name: "name",
+    nullable: true,
+    comment: "菜单名称",
+    length: 255,
+  })
+  name: string | null;
 
   @Column("varchar", {
     name: "url",

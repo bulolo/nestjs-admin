@@ -13,14 +13,14 @@ export class MenuService {
 
   constructor(
     @InjectRepository(MenuEntity)
-    private readonly roleRepo: Repository<MenuEntity>,
+    private readonly menuRepo: Repository<MenuEntity>,
     private readonly config: ConfigService,
   ) { }
 
   // 创建
   async create(dto: CreateMenuDto): Promise<Record<string, any>> {
     const data = plainToClass(MenuEntity, dto, { ignoreDecorators: true })
-    const res = await this.roleRepo.save(data)
+    const res = await this.menuRepo.save(data)
     return res
   }
 
@@ -30,7 +30,7 @@ export class MenuService {
     const where = {
       // ...(name ? { name: Like(`%${name}%`) } : null),
     }
-    const [result, total] = await this.roleRepo.findAndCount({
+    const [result, total] = await this.menuRepo.findAndCount({
       where,
       order: { created_at: 'DESC' },
       skip: size * (page - 1),
@@ -46,7 +46,7 @@ export class MenuService {
 
   // 根据ID查找
   async findById(id: number): Promise<Record<string, any>> {
-    let findOne = await this.roleRepo.findOne(id)
+    let findOne = await this.menuRepo.findOne(id)
     if (!findOne) {
       throw new NotFoundException()
     }
@@ -56,14 +56,14 @@ export class MenuService {
   // 根据ID更新
   async updateById(dto: UpdateMenuDto): Promise<Record<string, any>> {
     await this.findById(dto.id)
-    await this.roleRepo.update(dto.id, dto)
+    await this.menuRepo.update(dto.id, dto)
     return classToPlain(await this.findById(dto.id))
   }
 
   // 根据ID删除
   async deleteById(id: number): Promise<Record<string, any>> {
     await this.findById(id)
-    const res = await this.roleRepo.softDelete(id)
+    const res = await this.menuRepo.softDelete(id)
     return res
   }
 

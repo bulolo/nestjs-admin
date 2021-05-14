@@ -72,4 +72,4 @@ yarn build:docker
 
 ## 🔑 License
 
-Copyright (c) 2021 俊瑶先生
+Copyright (c) 2021 俊瑶先生(bulolo)
