@@ -1,5 +1,8 @@
 ## 【锐策】 基于Nestjs的权限管理系统。
 
+
+## 该项目持续开发中
+
 ## ✨ 特性
 
 - 遵循 RESTful API 设计规范
@@ -69,4 +72,4 @@ yarn build:docker
 
 ## 🔑 License
 
-Copyright (c) 2021 bulolo
+Copyright (c) 2021 俊瑶先生
