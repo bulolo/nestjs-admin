@@ -37,9 +37,17 @@
 
 ### 启动项目
 ```
-yarn start
+// 本地环境
+yarn start:local
 ```
-
+```
+// 测试环境
+yarn start:dev
+```
+```
+// 正式环境
+yarn start:prod
+```
 ### 数据库表创建模型实体
 * 所有表构建模型实体   
 ```
