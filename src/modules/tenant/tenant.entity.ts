@@ -48,14 +48,6 @@ export class TenantEntity extends BaseTenantEntity{
   username: string | null;
 
   @Column("tinyint", {
-    name: "del_flag",
-    nullable: true,
-    comment: "删除标识 0：未删除    1：删除",
-    unsigned: true,
-  })
-  del_flag: number | null;
-
-  @Column("tinyint", {
     name: "sys_tenant",
     nullable: true,
     comment: "系统租户   0：否   1：是",

@@ -1,3 +1,4 @@
+import { DeptModule } from './modules/dept/dept.module';
 import { PostModule } from './modules/post/post.module';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { MenuModule } from './modules/menu/menu.module';
@@ -14,6 +15,7 @@ import { RedisModule } from 'nestjs-redis';
 
 @Module({
   imports: [
+    DeptModule,
     PostModule,
     TenantModule,
     MenuModule,
