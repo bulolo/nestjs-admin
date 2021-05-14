@@ -18,7 +18,7 @@ export class DeptController {
   ) { }
   @Get()
   @ApiOperation({ summary: '查询部门列表' })
-  @Permissions('sys:role:list')
+  @Permissions('sys:dept:list')
   async list(@Query() dto: QueryDeptDto): Promise<Result> {
     const res = await this.deptService.page(dto)
     return Result.ok(res)
@@ -26,7 +26,7 @@ export class DeptController {
 
   @Post()
   @ApiOperation({ summary: '创建部门' })
-  @Permissions('sys:role:add')
+  @Permissions('sys:dept:add')
   async create(@Body() dto: CreateDeptDto): Promise<Result> {
     const res = await this.deptService.create(dto)
     return Result.ok(res)
@@ -36,7 +36,7 @@ export class DeptController {
   @Get(':id')
   @ApiOperation({ summary: '查询部门' })
   @ApiParam({ name: 'id', description: '部门id' })
-  @Permissions('sys:role:info')
+  @Permissions('sys:dept:info')
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
     const res = await this.deptService.findById(id)
     return Result.ok(res)
@@ -45,7 +45,7 @@ export class DeptController {
   @Put(':id')
   @ApiOperation({ summary: '更新部门' })
   @ApiParam({ name: 'id', description: '部门id' })
-  @Permissions('sys:role:update')
+  @Permissions('sys:dept:update')
   async update(@Body() dto: UpdateDeptDto): Promise<Result> {
     const res = await this.deptService.updateById(dto)
     return Result.ok(res)
@@ -54,7 +54,7 @@ export class DeptController {
   @Delete(':id')
   @ApiOperation({ summary: '删除部门' })
   @ApiParam({ name: 'id', description: '部门id' })
-  @Permissions('sys:role:delete')
+  @Permissions('sys:dept:delete')
   async delete(@Param('id', new ParseIntPipe()) id): Promise<Result> {
     const res = await this.deptService.deleteById(id)
     return Result.ok(res)

@@ -21,7 +21,7 @@ export class PostController {
 
   @Get()
   @ApiOperation({ summary: '查询岗位列表' })
-  @Permissions('sys:role:list')
+  @Permissions('sys:post:list')
   async list(@Query() dto: QueryPostDto): Promise<Result> {
     const res = await this.postService.page(dto)
     return Result.ok(res)
@@ -29,7 +29,7 @@ export class PostController {
 
   @Post()
   @ApiOperation({ summary: '创建岗位' })
-  @Permissions('sys:role:add')
+  @Permissions('sys:post:add')
   async create(@Body() dto: CreatePostDto): Promise<Result> {
     const res = await this.postService.create(dto)
     return Result.ok(res)
@@ -39,7 +39,7 @@ export class PostController {
   @Get(':id')
   @ApiOperation({ summary: '查询岗位' })
   @ApiParam({ name: 'id', description: '岗位id' })
-  @Permissions('sys:role:info')
+  @Permissions('sys:post:info')
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
     const res = await this.postService.findById(id)
     return Result.ok(res)
@@ -48,7 +48,7 @@ export class PostController {
   @Put(':id')
   @ApiOperation({ summary: '更新岗位' })
   @ApiParam({ name: 'id', description: '岗位id' })
-  @Permissions('sys:role:update')
+  @Permissions('sys:post:update')
   async update(@Body() dto: UpdatePostDto): Promise<Result> {
     const res = await this.postService.updateById(dto)
     return Result.ok(res)
@@ -57,7 +57,7 @@ export class PostController {
   @Delete(':id')
   @ApiOperation({ summary: '删除岗位' })
   @ApiParam({ name: 'id', description: '岗位id' })
-  @Permissions('sys:role:delete')
+  @Permissions('sys:post:delete')
   async delete(@Param('id', new ParseIntPipe()) id): Promise<Result> {
     const res = await this.postService.deleteById(id)
     return Result.ok(res)
