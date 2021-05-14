@@ -25,6 +25,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       Response: ${exception}
       \n <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< `
     console.log(logFormat)
+    console.log(exception)
     response.status(status).json({
       code: status,
       msg: `${message}`

@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { DeptEntity } from "../dept/dept.entity";
 import { BaseEntity } from "../_base/base.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
 
@@ -114,4 +115,9 @@ export class UserEntity extends BaseTenantEntity {
   @Exclude({ toPlainOnly: true })
   salt: string | null;
 
+
+  @OneToOne((type) => DeptEntity)
+  @JoinColumn({ name: 'dept_id' })
+  dept: DeptEntity;
+  
 }

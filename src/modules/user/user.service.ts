@@ -61,10 +61,12 @@ export class UserService {
     }
     const [result, total] = await this.userRepo.findAndCount({
       where,
+      relations: ["dept"],
       order: { created_at: 'DESC' },
       skip: size * (page - 1),
       take: size
     })
+    console.log(result)
     return {
       list: classToPlain(result),
       page: page,
@@ -79,6 +81,7 @@ export class UserService {
     let user = plainToClass(UserEntity, redis_user, { enableImplicitConversion: true })
     if (!user?.id) {
       user = await this.userRepo.findOne(id)
+      console.log(user)
       if (!user) {
         throw new NotFoundException()
       }
@@ -92,10 +95,8 @@ export class UserService {
     const existing = await this.findById(dto.id)
     if (dto.password) {
       if (dto.password !== dto.confirmPassword) throw new HttpException('账号或密码错误', HttpStatus.NOT_ACCEPTABLE);
-      const salt = await genSalt()
       dto.password = await hash(dto.password, existing.salt)
     }
-    console.log(existing)
     const user = plainToClass(UserEntity, dto)
     await this.userRepo.update(dto.id, user)
     await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${dto.id}`, classToPlain(dto))
