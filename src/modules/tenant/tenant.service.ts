@@ -9,7 +9,7 @@ import { UpdateTenantDto } from './dto/update.dto';
 import { TenantEntity } from './tenant.entity';
 
 @Injectable()
-export class TenantService { 
+export class TenantService {
   constructor(
     @InjectRepository(TenantEntity)
     private readonly tenantRepo: Repository<TenantEntity>,
