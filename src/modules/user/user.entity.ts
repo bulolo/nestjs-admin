@@ -1,9 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { DeptEntity } from "../dept/dept.entity";
+import { UserRoleEntity } from "./user-role.entity";
 import { BaseEntity } from "../_base/base.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
+import { UserPostEntity } from "./user-post.entity";
 
 @Index("uk_username", ["username"], { unique: true })
 @Index("idx_create_date", ["created_at"], {})
@@ -115,9 +117,15 @@ export class UserEntity extends BaseTenantEntity {
   @Exclude({ toPlainOnly: true })
   salt: string | null;
 
-
   @OneToOne((type) => DeptEntity)
   @JoinColumn({ name: 'dept_id' })
   dept: DeptEntity;
-  
+
+  // 角色关系
+  @OneToMany((type) => UserRoleEntity, (userRoles) => userRoles.users, { cascade: ['insert', 'remove'], nullable: false })
+  public userRoles!: UserRoleEntity[]
+
+  // 岗位关系
+  @OneToMany((type) => UserPostEntity, (userPosts) => userPosts.users, { cascade: ['insert', 'remove'], nullable: false })
+  public userPosts!: UserPostEntity[]
 }

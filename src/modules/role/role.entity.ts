@@ -1,4 +1,5 @@
-import { Column, Entity, Index } from "typeorm";
+import { Column, Entity, Index, OneToMany } from "typeorm";
+import { UserRoleEntity } from "../user/user-role.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
 
 @Index("idx_dept_id", ["dept_id"], {})
@@ -23,5 +24,12 @@ export class RoleEntity extends BaseTenantEntity {
 
   @Column("bigint", { name: "dept_id", nullable: true, comment: "部门ID" })
   dept_id: number | null;
+
+
+  @OneToMany(
+    type => UserRoleEntity,
+    userRole => userRole.roles,
+  )
+  public userRoles: UserRoleEntity[]
 
 }

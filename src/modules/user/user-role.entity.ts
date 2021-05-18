@@ -1,15 +1,15 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PostEntity } from "../post/post.entity";
+import { RoleEntity } from "../role/role.entity";
 import { BaseEntity } from "../_base/base.entity";
 import { UserEntity } from "./user.entity";
 
-@Index("idx_post_id", ["post_id"], {})
+@Index("idx_role_id", ["role_id"], {})
 @Index("idx_user_id", ["user_id"], {})
-  @Entity("sys_user_post", { schema: "race_nestjs_admin" })
-export class UserPostEntity extends BaseEntity{
+  @Entity("sys_user_role", { schema: "race_nestjs_admin" })
+export class UserRoleEntity extends BaseEntity{
 
-  @Column("bigint", { name: "post_id", nullable: true, comment: "岗位ID" })
-  post_id: string | null;
+  @Column("bigint", { name: "role_id", nullable: true, comment: "角色ID" })
+  role_id: number | null;
 
   @Column("bigint", { name: "user_id", nullable: true, comment: "用户ID" })
   user_id: number | null;
@@ -17,16 +17,16 @@ export class UserPostEntity extends BaseEntity{
 
   @ManyToOne(
     type => UserEntity,
-    user => user.userPosts,
+    user => user.userRoles,
   )
   @JoinColumn({ name: 'user_id' })
   users!: UserEntity
 
 
   @ManyToOne(
-    type => PostEntity,
-    post => post.userPosts,
+    type => RoleEntity,
+    role => role.userRoles,
   )
-  @JoinColumn({ name: 'post_id' })
-  posts!: PostEntity
+  @JoinColumn({ name: 'role_id' })
+  roles!: RoleEntity
 }

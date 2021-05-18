@@ -64,7 +64,7 @@ export class UserService {
       relations: ["dept"],
       order: { created_at: 'DESC' },
       skip: size * (page - 1),
-      take: size
+      take: size,
     })
     console.log(result)
     return {
@@ -75,18 +75,24 @@ export class UserService {
     }
   }
 
-  // 根据ID查找
+  // 根据ID查找 只查用户表，
   async findById(id: number): Promise<Record<string, any>> {
     const redis_user = await this.redisService.getClient('admin').hgetall(`user:info:${id}`)
     let user = plainToClass(UserEntity, redis_user, { enableImplicitConversion: true })
     if (!user?.id) {
-      user = await this.userRepo.findOne(id)
-      console.log(user)
+      let user = await this.userRepo.findOne(id)
       if (!user) {
         throw new NotFoundException()
       }
       await this.redisService.getClient('admin').hmset(`${RedisKeyPrefix.USER_INFO}${id}`, classToPlain(user))
     }
+    return classToPlain(user)
+  }
+
+  // 根据 ID 查询用户详细信息
+  async find(id: number): Promise<Record<string, any>> {
+    const user = await this.userRepo.findOne(id, { relations: ['dept','userRoles','userPosts'] })
+    if (!user) throw new NotFoundException()
     return classToPlain(user)
   }
 

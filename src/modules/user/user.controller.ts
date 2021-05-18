@@ -41,7 +41,7 @@ export class UserController {
   @ApiParam({ name: 'id', description: '用户id' })
   @Permissions('sys:user:info')
   async query(@Param('id', new ParseIntPipe()) id): Promise<Result> {
-    const res = await this.userService.findById(id)
+    const res = await this.userService.find(id)
     return Result.ok(res)
   }
 

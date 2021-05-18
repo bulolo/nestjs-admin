@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UserPostEntity } from "../user/user-post.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
 
 @Entity("sys_post", { schema: "race_nestjs_admin" })
@@ -30,4 +31,11 @@ export class PostEntity extends BaseTenantEntity {
     comment: "状态  0：停用   1：正常",
   })
   status: number | null;
+
+  @OneToMany(
+    type => UserPostEntity,
+    userPost => userPost.posts,
+  )
+  public userPosts: UserPostEntity[]
+
 }
