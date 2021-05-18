@@ -15,6 +15,7 @@ export class BaseEntity {
   @Transform(({ value }) => dayjs(value).format("YYYY-MM-DD HH:mm:ss"), { toPlainOnly: true })
   @CreateDateColumn({
     type: 'datetime',
+    nullable: false,
     name: 'created_at',
     comment: '创建时间',
   })
@@ -37,6 +38,7 @@ export class BaseEntity {
   @DeleteDateColumn({
     type: 'datetime',
     name: 'deleted_at',
+    select: false,
     comment: '删除',
   })
   @Transform(({ value }) => dayjs(value).format("YYYY-MM-DD HH:mm:ss"), { toPlainOnly: true })

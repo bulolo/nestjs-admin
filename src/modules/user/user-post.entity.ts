@@ -22,7 +22,6 @@ export class UserPostEntity extends BaseEntity{
   @JoinColumn({ name: 'user_id' })
   users!: UserEntity
 
-
   @ManyToOne(
     type => PostEntity,
     post => post.userPosts,
