@@ -1,3 +1,4 @@
+
 import { DeptModule } from './modules/dept/dept.module';
 import { PostModule } from './modules/post/post.module';
 import { TenantModule } from './modules/tenant/tenant.module';
@@ -12,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/index'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { RedisModule } from 'nestjs-redis';
+
 
 @Module({
   imports: [

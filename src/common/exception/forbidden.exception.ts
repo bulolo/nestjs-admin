@@ -4,7 +4,7 @@ export class ForbiddenException extends HttpException {
   constructor() {
     super({
       status: HttpStatus.FORBIDDEN,
-      error: 'This is a custom message',
+      error: 'Forbidden',
     }, HttpStatus.FORBIDDEN);
     // super('Forbidden', HttpStatus.FORBIDDEN);
   }
