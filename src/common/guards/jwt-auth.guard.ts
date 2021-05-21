@@ -15,13 +15,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   ): Promise<boolean> {
     const req = context.switchToHttp().getRequest()
     const res = context.switchToHttp().getResponse()
-
     const accessToken = req.get('Authorization')
     if (!accessToken) throw new UnauthorizedException('请先登录')
-
     const atUserId = this.userService.verifyToken(accessToken)
     if (atUserId) return this.activate(context)
-
     const refreshToken = req.get('RefreshToken')
     const rtUserId = this.userService.verifyToken(refreshToken)
     if (!rtUserId) throw new UnauthorizedException('当前登录已过期，请重新登录')

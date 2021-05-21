@@ -92,19 +92,19 @@ export class UserService {
   // 根据 ID 查询用户详细信息
   async find(id: number): Promise<Record<string, any>> {
     // https://github.com/typeorm/typeorm/issues/876
-    const user = await this.userRepo.createQueryBuilder('user')
-      .select(['user.username', 'dept.name', 'userRoles', 'roles.name'])
-      .leftJoin("user.dept", "dept")
-      .leftJoin("user.userRoles", "userRoles")
-      .leftJoin("userRoles.roles", "roles")
-      .getOne()
-    return classToPlain(user)
-    // const user = await this.userRepo.findOne(id, {
-    //   // select:['dept'],
-    //   relations: ['dept', 'userRoles', 'userRoles.roles', 'userPosts', 'userPosts.posts']
-    // })
-    // if (!user) throw new NotFoundException()
+    // const user = await this.userRepo.createQueryBuilder('user')
+    //   .select(['user', 'dept.name', 'userRoles', 'roles.name'])
+    //   .leftJoin("user.dept", "dept")
+    //   .leftJoin("user.userRoles", "userRoles")
+    //   .leftJoin("userRoles.roles", "roles")
+    //   .getOne()
     // return classToPlain(user)
+    const user = await this.userRepo.findOne(id, {
+      // select:['dept'],
+      relations: ['dept', 'userRoles', 'userRoles.roles', 'userPosts', 'userPosts.posts']
+    })
+    if (!user) throw new NotFoundException()
+    return classToPlain(user)
   }
 
   // 根据ID更新
