@@ -34,7 +34,7 @@ export class PostEntity extends BaseTenantEntity {
 
   @OneToMany(
     type => UserPostEntity,
-    userPost => userPost.posts,
+    userPost => userPost.post,
   )
   public userPosts: UserPostEntity[]
 

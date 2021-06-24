@@ -20,7 +20,7 @@ export class UserRoleEntity extends BaseEntity{
     user => user.userRoles,
   )
   @JoinColumn({ name: 'user_id' })
-  users!: UserEntity
+  user!: UserEntity
 
 
   @ManyToOne(
@@ -28,5 +28,5 @@ export class UserRoleEntity extends BaseEntity{
     role => role.userRoles,
   )
   @JoinColumn({ name: 'role_id' })
-  roles!: RoleEntity
+  role!: RoleEntity
 }

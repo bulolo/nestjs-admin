@@ -122,10 +122,10 @@ export class UserEntity extends BaseTenantEntity {
   dept: DeptEntity;
 
   // 角色关系
-  @OneToMany((type) => UserRoleEntity, (userRoles) => userRoles.users, { cascade: ['insert', 'remove'], nullable: false })
+  @OneToMany((type) => UserRoleEntity, (userRoles) => userRoles.user, { cascade: ['insert', 'remove'], nullable: false })
   public userRoles!: UserRoleEntity[]
 
   // 岗位关系
-  @OneToMany((type) => UserPostEntity, (userPosts) => userPosts.users, { cascade: ['insert', 'remove'], nullable: false })
+  @OneToMany((type) => UserPostEntity, (userPosts) => userPosts.user, { cascade: ['insert', 'remove'], nullable: false })
   public userPosts!: UserPostEntity[]
 }

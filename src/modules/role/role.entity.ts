@@ -28,7 +28,7 @@ export class RoleEntity extends BaseTenantEntity {
 
   @OneToMany(
     type => UserRoleEntity,
-    userRole => userRole.roles,
+    userRole => userRole.role,
   )
   public userRoles: UserRoleEntity[]
 

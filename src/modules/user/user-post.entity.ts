@@ -20,12 +20,12 @@ export class UserPostEntity extends BaseEntity{
     user => user.userPosts,
   )
   @JoinColumn({ name: 'user_id' })
-  users!: UserEntity
+  user!: UserEntity
 
   @ManyToOne(
     type => PostEntity,
     post => post.userPosts,
   )
   @JoinColumn({ name: 'post_id' })
-  posts!: PostEntity
+  post!: PostEntity
 }
