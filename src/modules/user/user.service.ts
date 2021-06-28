@@ -60,11 +60,13 @@ export class UserService {
       ...(username ? { username: Like(`%${username}%`) } : null),
     }
     const [result, total] = await this.userRepo.findAndCount({
-      where,
+      select: ['id', 'username', 'real_name', 'status', 'dept', 'head_url', 'status', 'email', 'gender', 'mobile', 'created_at'],
       relations: ["dept"],
+      where,
       order: { created_at: 'DESC' },
       skip: size * (page - 1),
       take: size,
+      cache: true
     })
     console.log(result)
     return {
@@ -101,12 +103,6 @@ export class UserService {
       .leftJoin("userPosts.post", "post").addSelect(['post.post_name', 'post.post_code'])
       .getOne()
     return classToPlain(user)
-    // const user = await this.userRepo.findOne(id, {
-    //   // select:['dept'],
-    //   relations: ['dept', 'userRoles', 'userRoles.role', 'userPosts', 'userPosts.post']
-    // })
-    // if (!user) throw new NotFoundException()
-    // return classToPlain(user)
   }
 
   // 根据ID更新
