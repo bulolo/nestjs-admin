@@ -55,6 +55,7 @@ export class UserService {
   // 分页列表查找
   async page(dto: QueryUserDto): Promise<Record<string, any>> {
     const { page = 1, size = 10, username, status } = dto
+    console.log(status)
     const where = {
       ...(status ? { status } : null),
       ...(username ? { username: Like(`%${username}%`) } : null),
@@ -68,7 +69,7 @@ export class UserService {
       take: size,
       cache: true
     })
-    console.log(result)
+    // console.log(result)
     return {
       list: classToPlain(result),
       page: page,

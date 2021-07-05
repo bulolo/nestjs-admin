@@ -14,7 +14,7 @@ import { Permissions } from 'src/common/decorator/permissions.decorator'
 @ApiTags('用户相关')
 @Controller('v1/users')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(
     private readonly userService: UserService
