@@ -12,7 +12,7 @@ import { PostService } from './post.service';
 
 @ApiTags('岗位相关')
 @Controller('v1/posts')
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class PostController {
 
   constructor(

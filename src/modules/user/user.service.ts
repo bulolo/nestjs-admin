@@ -54,9 +54,13 @@ export class UserService {
 
   // 分页列表查找
   async page(dto: QueryUserDto): Promise<Record<string, any>> {
-    const { page = 1, size = 10, username, status } = dto
-    console.log(status)
+    const { page = 1, size = 10, username, status, sort, order, gender } = dto
+    console.log('sort', sort)
+    console.log('order', order)
+    console.log('gender', gender)
+    console.log('status', status)
     const where = {
+      ...(gender ? { gender } : null),
       ...(status ? { status } : null),
       ...(username ? { username: Like(`%${username}%`) } : null),
     }

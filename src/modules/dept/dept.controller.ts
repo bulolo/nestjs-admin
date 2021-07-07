@@ -11,7 +11,7 @@ import { UpdateDeptDto } from './dto/update-dept.dto';
 
 @ApiTags('部门相关')
 @Controller('v1/depts')
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class DeptController {
   constructor(
     private readonly deptService: DeptService

@@ -128,4 +128,5 @@ export class UserEntity extends BaseTenantEntity {
   // 岗位关系
   @OneToMany((type) => UserPostEntity, (userPosts) => userPosts.user, { cascade: ['insert', 'remove'], nullable: false })
   public userPosts!: UserPostEntity[]
+
 }
