@@ -54,26 +54,26 @@ export class UserService {
 
   // 分页列表查找
   async page(dto: QueryUserDto): Promise<Record<string, any>> {
-    const { page = 1, size = 10, username, status, sort, order, gender } = dto
-    console.log('sort', sort)
-    console.log('order', order)
-    console.log('gender', gender)
-    console.log('status', status)
+    const { page = 1, size = 10, username, status, sortBy = 'created_at', sortOrder = 'DESC', gender } = dto
     const where = {
       ...(gender ? { gender } : null),
       ...(status ? { status } : null),
       ...(username ? { username: Like(`%${username}%`) } : null),
     }
-    const [result, total] = await this.userRepo.findAndCount({
-      select: ['id', 'username', 'real_name', 'status', 'dept', 'head_url', 'status', 'email', 'gender', 'mobile', 'created_at'],
-      relations: ["dept"],
-      where,
-      order: { created_at: 'DESC' },
-      skip: size * (page - 1),
-      take: size,
-      cache: true
-    })
-    // console.log(result)
+    const [result, total] = await this.userRepo
+      .createQueryBuilder('user')
+      .select(['user.id', 'user.username', 'user.real_name', 'user.status', 'user.dept_id', 'user.head_url', 'user.status', 'user.email', 'user.gender', 'user.mobile', 'user.created_at'])
+      .leftJoinAndSelect('user.dept', 'dept')
+      .leftJoinAndSelect('user.userRoles', 'userRoles')
+      .leftJoinAndSelect('user.userPosts', 'userPosts')
+      .where(where)
+      .orderBy(`user.${sortBy}`, sortOrder)
+      .skip(size * (page - 1))
+      .take(size)
+      // .offset(size * (page - 1))
+      // .limit(size)
+      .cache(true)
+      .getManyAndCount()
     return {
       list: classToPlain(result),
       page: page,

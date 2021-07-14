@@ -9,6 +9,7 @@ export class QueryUserDto extends BasePageDto {
 
   @ApiProperty({ description: '状态', required: false })
   status: number
-
+  
+  @ApiProperty({ description: '性别', required: false })
   gender: number
 }

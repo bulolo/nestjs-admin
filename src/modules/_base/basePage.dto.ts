@@ -7,6 +7,6 @@ export class BasePageDto {
   @ApiProperty({ description: '每页显示条数', minimum: 0, default: 10, required: false })
   size: number
 
-  sort?: string
-  order?: string
+  sortOrder?: 'ASC' | 'DESC'
+  sortBy?: string
 }

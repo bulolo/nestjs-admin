@@ -7,7 +7,6 @@ import { BaseEntity } from "../_base/base.entity";
 import { BaseTenantEntity } from "../_base/baseTenant.entity";
 import { UserPostEntity } from "./user-post.entity";
 
-@Index("uk_username", ["username"], { unique: true })
 @Index("idx_create_date", ["created_at"], {})
 @Entity("sys_user", { schema: "race_nestjs_admin" })
 export class UserEntity extends BaseTenantEntity {
